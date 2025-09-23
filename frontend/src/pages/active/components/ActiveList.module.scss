@@ -1,0 +1,28 @@
+@use '../../../styles/vars.scss' as *;
+
+.grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1.5em;
+
+	@media (min-width: 480px) {
+		gap: 2em;
+	}
+
+	@media (min-width: $app-tablet) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media (min-width: $app-desktop) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+.loading,
+.empty {
+	text-align: center;
+	color: var(--txt-secondary);
+	padding: 2em 1em;
+	font-size: clamp(1em, 2vw, 1.2em);
+	grid-column: 1 / -1;
+}

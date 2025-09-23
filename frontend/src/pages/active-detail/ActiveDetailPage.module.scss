@@ -1,0 +1,152 @@
+@use '../../styles/vars.scss' as vars;
+
+.detailSection {
+	background: var(--app-background);
+	padding: 2rem 0;
+}
+
+.mainContent {
+	display: flex;
+	flex-direction: row;
+	gap: 2.5rem;
+	align-items: flex-start;
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.left {
+	flex: 1 1 0;
+	display: flex;
+	flex-direction: column;
+	min-height: max-content;
+	background: var(--color-white);
+	border-radius: var(--border-radius-lg);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	padding: 2rem;
+	overflow-x: auto;
+}
+
+.sidebar {
+	width: 320px;
+	min-width: 260px;
+	max-width: 340px;
+	background: var(--color-white);
+	border-radius: var(--border-radius-lg);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	padding: 2rem 1.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.2rem;
+}
+
+.sidebarHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 1rem;
+}
+
+.sidebarScores {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.25em;
+}
+
+.sidebarSection {
+	display: flex;
+	align-items: center;
+	height: max-content;
+	gap: 1em;
+	font-size: 1em;
+	color: var(--txt-secondary);
+
+	span {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4em;
+	}
+}
+
+.mainInfo {
+	display: flex;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+
+.iconSidebar {
+	flex-shrink: 0;
+	position: relative;
+	aspect-ratio: 1;
+	color: var(--color-primary);
+}
+
+.points {
+	color: var(--txt-accent);
+	font-weight: var(--font-bold);
+	font-size: 1.1rem;
+}
+
+.actions {
+	margin-top: 1.5rem;
+}
+
+.gallery {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 1rem;
+	margin-top: 1rem;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.galleryImg {
+	aspect-ratio: 16/9;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	border-radius: var(--border-radius-lg);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	background: var(--color-white);
+}
+
+.noImage {
+	color: var(--neutral-medium);
+	font-style: italic;
+	padding: 2rem;
+}
+
+.loading,
+.error {
+	text-align: center;
+	font-size: 1.2rem;
+	padding: 2rem;
+	color: var(--txt-secondary);
+}
+
+@media (max-width: vars.$app-tablet) {
+	.mainContent {
+		flex-direction: column-reverse;
+		gap: 1.2rem;
+	}
+	.left {
+		gap: 1rem;
+		padding: 1rem;
+	}
+	.sidebar {
+		width: 100%;
+		max-width: 100%;
+		min-width: unset;
+		position: static;
+		padding: 1rem;
+		margin-bottom: 1rem;
+	}
+	// .gallery {
+	// 	display: flex;
+	// 	gap: 0.7rem;
+	// 	overflow-x: auto;
+	// 	padding-bottom: 0.5rem;
+	// }
+}

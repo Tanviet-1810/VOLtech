@@ -1,0 +1,22 @@
+.alignCenterPage {
+	width: 100vw;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--color-white);
+	font-family: var(--font-family);
+}
+
+.alignCenterContainer {
+	width: 100%;
+	padding: 2rem;
+	display: flex;
+	justify-content: center;
+}
+
+@media (max-width: 768px) {
+	.alignCenterContainer {
+		padding: 1rem;
+	}
+}

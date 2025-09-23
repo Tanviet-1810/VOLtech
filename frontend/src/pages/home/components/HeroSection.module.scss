@@ -1,0 +1,103 @@
+@use '../../../styles/vars.scss' as *;
+
+.heroSection {
+	background-color: var(--color-primary);
+	color: var(--txt-white);
+	padding: 5em 0;
+
+	@media (min-width: $app-desktop) {
+		padding: 6em 0;
+	}
+}
+
+.content {
+	text-align: center;
+}
+
+.textBlock {
+	margin-bottom: 2em;
+}
+
+.title {
+	font-size: clamp(2em, 5vw, 3.75em);
+	font-weight: var(--font-bold);
+	line-height: 1.2;
+	color: var(--txt-white);
+}
+
+.accent {
+	color: var(--txt-accent);
+}
+
+.subtitle {
+	font-size: clamp(1.125em, 2vw, 1.5em);
+	color: rgba(255, 255, 255, 0.9);
+	max-width: 48em;
+	margin: 1em auto 0;
+	line-height: 1.6;
+}
+
+/* Buttons */
+.actions {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1em;
+	margin-top: 2em;
+
+	@media (min-width: $app-tablet) {
+		flex-direction: row;
+		justify-content: center;
+	}
+}
+
+.icon {
+	width: 1.25em;
+	height: 1.25em;
+}
+
+/* Stats */
+.stats {
+	display: flex;
+	justify-content: center;
+	gap: 3em;
+	margin-top: 3em;
+	flex-wrap: wrap;
+}
+
+.statItem {
+	display: flex;
+	align-items: center;
+	gap: 0.75em;
+}
+
+.iconWrapper {
+	width: 3em;
+	height: 3em;
+	background-color: var(--color-accent);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.iconStat {
+	width: 1.5em;
+	height: 1.5em;
+	color: var(--txt-white);
+}
+
+.statNumber {
+	font-size: clamp(1.25em, 2vw, 1.5em);
+	font-weight: var(--font-bold);
+}
+
+.statLabel {
+	color: rgba(255, 255, 255, 0.8);
+	font-size: clamp(0.8em, 1vw, 0.9em);
+}
+
+.statLabel {
+	color: rgba(255, 255, 255, 0.8);
+	font-size: clamp(0.8em, 1vw, 0.9em);
+}

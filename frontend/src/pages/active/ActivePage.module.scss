@@ -1,0 +1,64 @@
+@use '../../styles/vars.scss' as *;
+
+.activeSection {
+	padding: 3em 0;
+
+	@media (min-width: $app-tablet) {
+		padding: 4em 0;
+	}
+
+	@media (min-width: $app-desktop) {
+		padding: 5em 0;
+	}
+}
+
+.header {
+	text-align: center;
+	margin-bottom: 2em;
+	padding: 0 1em;
+
+	@media (min-width: $app-tablet) {
+		margin-bottom: 3em;
+		padding: 0 2em;
+	}
+
+	@media (min-width: $app-desktop) {
+		padding: 0;
+	}
+}
+
+.title {
+	font-size: clamp(1.8em, 5vw, 2.5em);
+	font-weight: var(--font-bold);
+	color: var(--txt-black);
+	line-height: 1.2;
+	margin-bottom: 0.5em;
+
+	@media (min-width: $app-tablet) {
+		line-height: 1.3;
+	}
+}
+
+.subtitle {
+	font-size: clamp(1em, 2.5vw, 1.25em);
+	color: var(--txt-secondary);
+	max-width: 90%;
+	margin: 0 auto;
+	line-height: 1.5;
+
+	@media (min-width: $app-tablet) {
+		max-width: 40em;
+		line-height: 1.6;
+	}
+}
+
+.error {
+	color: var(--notice-error);
+	text-align: center;
+	margin: 2em 1em;
+	font-size: clamp(1em, 2vw, 1.1em);
+
+	@media (min-width: $app-tablet) {
+		margin: 2em 0;
+	}
+}

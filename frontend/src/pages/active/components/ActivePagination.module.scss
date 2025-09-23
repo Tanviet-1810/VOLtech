@@ -1,0 +1,30 @@
+@use '../../../styles/vars.scss' as *;
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1em;
+	margin: 2em 0;
+	padding: 0 1em;
+	flex-wrap: wrap;
+
+	@media (min-width: $app-tablet) {
+		gap: 1.5em;
+		flex-wrap: nowrap;
+	}
+}
+
+.pageInfo {
+	font-size: clamp(0.9em, 2vw, 1.1em);
+	color: var(--txt-secondary);
+	white-space: nowrap;
+	order: -1;
+	width: 100%;
+	text-align: center;
+
+	@media (min-width: $app-tablet) {
+		order: 0;
+		width: auto;
+	}
+}

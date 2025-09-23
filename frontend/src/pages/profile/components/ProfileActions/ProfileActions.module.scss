@@ -1,0 +1,33 @@
+@use '../../../../styles/vars.scss' as *;
+
+.actions {
+	display: flex;
+	gap: 1rem;
+	justify-content: flex-end;
+	align-items: center;
+
+	@media (max-width: $app-mobile) {
+		flex-direction: column-reverse;
+		gap: 0.75rem;
+	}
+}
+
+.activeBtn,
+.editBtn,
+.logoutBtn {
+	min-width: 10rem;
+
+	@media (max-width: $app-mobile) {
+		width: 100%;
+	}
+}
+
+.errorMessage {
+	background: var(--notice-error);
+	color: var(--txt-white);
+	padding: 0.75rem 1rem;
+	border-radius: var(--border-radius-base);
+	font-size: 0.875rem;
+	text-align: center;
+	box-shadow: 0 0.25rem 0.75rem rgba(220, 53, 69, 0.2);
+}

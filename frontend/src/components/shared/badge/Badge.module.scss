@@ -1,0 +1,120 @@
+.badge {
+	display: inline-block;
+	width: max-content;
+	padding: 0.3em 1em;
+	font-size: clamp(0.85rem, 1vw, 1rem);
+	font-weight: var(--font-semibold);
+	border-radius: var(--border-radius-base);
+	background-color: var(--color-accent);
+	color: var(--txt-white);
+	white-space: nowrap;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	letter-spacing: 0.01em;
+	border: 1px solid transparent;
+	transition: all 0.2s ease;
+}
+
+/* Variant Styles - Filled */
+.filled.primary {
+	background-color: var(--color-primary);
+	color: var(--txt-white);
+}
+
+.filled.secondary {
+	background-color: var(--color-secondary);
+	color: var(--txt-white);
+}
+
+.filled.accent {
+	background-color: var(--color-accent);
+	color: var(--txt-white);
+}
+
+.filled.success {
+	background-color: var(--notice-success);
+	color: var(--txt-white);
+}
+
+.filled.warning {
+	background-color: var(--notice-warning);
+	color: var(--txt-black);
+}
+
+.filled.error {
+	background-color: var(--notice-error);
+	color: var(--txt-white);
+}
+
+.filled.info {
+	background-color: var(--color-blue);
+	color: var(--txt-white);
+}
+
+.filled.neutral {
+	background-color: var(--neutral-light);
+	color: var(--txt-black);
+}
+
+/* Variant Styles - Outlined */
+.outlined {
+	background-color: transparent;
+	box-shadow: none;
+}
+
+.outlined.primary {
+	border-color: var(--color-primary);
+	color: var(--color-primary);
+}
+
+.outlined.secondary {
+	border-color: var(--color-secondary);
+	color: var(--color-secondary);
+}
+
+.outlined.accent {
+	border-color: var(--color-accent);
+	color: var(--color-accent);
+}
+
+.outlined.success {
+	border-color: var(--notice-success);
+	color: var(--notice-success);
+}
+
+.outlined.warning {
+	border-color: var(--notice-warning);
+	color: var(--notice-warning);
+}
+
+.outlined.error {
+	border-color: var(--notice-error);
+	color: var(--notice-error);
+}
+
+.outlined.info {
+	border-color: var(--color-blue);
+	color: var(--color-blue);
+}
+
+.outlined.neutral {
+	border-color: var(--neutral-light);
+	color: var(--neutral-medium);
+}
+
+/* Size Variations */
+.small {
+	padding: 0.2em 0.75em;
+	font-size: clamp(0.75rem, 0.9vw, 0.875rem);
+	border-radius: var(--border-radius-base);
+}
+
+.medium {
+	padding: 0.3em 1em;
+	font-size: clamp(0.85rem, 1vw, 1rem);
+}
+
+.large {
+	padding: 0.4em 1.25em;
+	font-size: clamp(0.95rem, 1.1vw, 1.125rem);
+	border-radius: var(--border-radius-xl);
+}

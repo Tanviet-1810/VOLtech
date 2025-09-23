@@ -1,0 +1,138 @@
+@use '../../styles/vars.scss' as *;
+
+.status {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem;
+	font-size: 1.1rem;
+	color: var(--txt-secondary);
+	gap: 0.5rem;
+}
+
+.statusError {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem;
+	font-size: 1.1rem;
+	color: var(--notice-error);
+}
+
+.spinner {
+	width: 1rem;
+	height: 1rem;
+	border: 2px solid var(--res-light-gray);
+	border-top: 2px solid var(--color-accent);
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.rankTable {
+	min-width: 100%;
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 1rem;
+	background-color: var(--color-white);
+	border-radius: var(--border-radius-base);
+	overflow: hidden;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+	thead {
+		background-color: var(--color-primary);
+		color: var(--txt-white);
+
+		th {
+			padding: 1rem;
+			text-align: left;
+			font-weight: var(--font-semibold);
+			font-size: 0.9rem;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+
+			@media (max-width: $app-tablet) {
+				padding: 0.75rem 0.5rem;
+				font-size: 0.8rem;
+			}
+		}
+	}
+
+	tbody {
+		tr {
+			border-bottom: 1px solid var(--border-lightgray);
+			transition: background-color 0.2s ease;
+
+			&:hover {
+				background-color: var(--res-ultra-light-gray);
+			}
+
+			&.topThree {
+				background: linear-gradient(135deg, var(--color-tertiary) 0%, var(--color-white) 100%);
+				font-weight: var(--font-semibold);
+			}
+
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+
+		td {
+			padding: 1rem;
+			color: var(--txt-primary);
+			font-size: 0.95rem;
+			white-space: nowrap;
+			max-width: 450px;
+			overflow-x: hidden;
+			text-overflow: ellipsis;
+
+			@media (max-width: $app-tablet) {
+				padding: 0.75rem 0.5rem;
+				font-size: 0.85rem;
+			}
+
+			&:first-child {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+			}
+
+			&:last-child {
+				text-align: right;
+				font-weight: var(--font-semibold);
+				color: var(--txt-accent);
+			}
+		}
+	}
+
+	@media (max-width: $app-mobile) {
+		font-size: 0.8rem;
+
+		th,
+		td {
+			padding: 0.5rem 0.25rem;
+		}
+	}
+}
+
+.rank {
+	font-weight: var(--font-bold);
+	color: var(--txt-accent);
+	font-size: 1rem;
+	min-width: 2rem;
+	display: inline-block;
+}
+
+.crown {
+	color: var(--color-accent);
+	filter: drop-shadow(0 2px 4px rgba(255, 165, 54, 0.3));
+	flex-shrink: 0;
+}

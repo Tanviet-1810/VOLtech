@@ -1,0 +1,80 @@
+@use '../../../styles/vars.scss' as *;
+
+.form {
+	background: var(--color-white);
+	padding: 2rem;
+	border-radius: var(--border-radius-lg);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.formGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 1.5rem;
+	margin-bottom: 2rem;
+}
+
+.fullWidth {
+	grid-column: 1 / -1;
+}
+
+.formGroup {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.label {
+	font-weight: var(--font-medium);
+	color: var(--txt-primary);
+	font-size: 0.875rem;
+}
+
+.textarea,
+.select {
+	padding: 0.75rem;
+	border: 1px solid var(--border-lightgray);
+	border-radius: var(--border-radius-base);
+	font-size: 0.875rem;
+	transition: border-color 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: var(--color-primary);
+	}
+
+	&:disabled {
+		background-color: var(--res-light-gray);
+		cursor: not-allowed;
+	}
+}
+
+.textarea {
+	resize: vertical;
+	min-height: 100px;
+	font-family: inherit;
+}
+
+.error {
+	color: var(--notice-error);
+	font-size: 0.75rem;
+	margin-top: 0.25rem;
+}
+
+.formActions {
+	display: flex;
+	gap: 1rem;
+	justify-content: flex-end;
+	padding-top: 1rem;
+	border-top: 1px solid var(--border-lightgray);
+}
+
+@media (max-width: $app-tablet) {
+	.formGrid {
+		grid-template-columns: 1fr;
+	}
+
+	.formActions {
+		flex-direction: column-reverse;
+	}
+}

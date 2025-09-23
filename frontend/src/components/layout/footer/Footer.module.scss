@@ -1,0 +1,118 @@
+@use '../../../styles/vars.scss' as *;
+
+.footer {
+	background-color: var(--app-background);
+	border-top: 0.0625em solid var(--border-lightgray);
+	margin-top: auto;
+	padding: 1em 0.4em;
+}
+
+.container {
+	max-width: $max-screen-width;
+	margin: 0 auto;
+	padding: 0 1em;
+	display: flex;
+	flex-direction: column;
+}
+
+.grid {
+	display: flex;
+	gap: 1em;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: start;
+
+	@media (min-width: $app-tablet) {
+		gap: 1.125em;
+	}
+	@media screen and (max-width: $app-tablet) {
+		flex-direction: column;
+	}
+}
+
+.Section {
+	display: flex;
+	gap: 2em;
+	@media screen and (max-width: $app-tablet) {
+		flex-direction: column;
+	}
+}
+
+.logoSection {
+	max-width: 40%;
+	width: max-content;
+	grid-column: span 1;
+
+	@media (min-width: $app-tablet) {
+		grid-column: span 2;
+	}
+}
+
+@media (max-width: $app-tablet) {
+	.logoSection {
+		max-width: 100%;
+	}
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 0.5em;
+	width: 8em;
+	height: auto;
+	max-height: 2em;
+}
+
+.logo img {
+	width: 100%;
+	height: auto;
+	object-fit: contain;
+}
+
+.description {
+	max-width: $app-tablet;
+	color: var(--txt-primary);
+	opacity: 0.85;
+	font-size: 0.875em;
+	line-height: 1.25em;
+}
+
+.linksTitle {
+	font-weight: var(--font-semibold);
+	color: var(--txt-primary);
+	margin-bottom: 0.5em;
+}
+
+.linkList {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25em;
+}
+
+.link {
+	font-weight: var(--font-regular);
+	color: var(--txt-primary);
+	opacity: 0.85;
+	font-size: 0.875em;
+	transition: color 0.3s;
+
+	&:hover {
+		color: var(--color-accent);
+	}
+}
+
+.bottom {
+	border-top: 0.0625em solid var(--border-lightgray);
+	margin-top: 0.875em;
+	padding-top: 0.5em;
+	text-align: center;
+}
+
+.bottomText {
+	font-size: 0.875em;
+	color: var(--txt-primary);
+}

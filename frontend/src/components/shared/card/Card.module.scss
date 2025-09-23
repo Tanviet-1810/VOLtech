@@ -1,0 +1,15 @@
+.card {
+	background: var(--colot-white);
+	border-radius: var(--border-radius-lg);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	transition: all 0.3s ease;
+	overflow: hidden;
+
+	&:hover {
+		box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+	}
+}
+
+.cardContent {
+	padding: clamp(1rem, 2vw, 2rem);
+}

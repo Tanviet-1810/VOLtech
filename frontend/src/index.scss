@@ -1,0 +1,26 @@
+@use './styles/vars.scss' as *;
+@use './styles/globals.scss' as *;
+@use './styles/animations.scss' as *;
+@use './styles/markdown.scss' as *;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+* {
+	border: none;
+	outline: none;
+	margin: 0;
+	padding: 0;
+	color: inherit;
+	font-size: 1em;
+	font-family: inherit;
+	box-sizing: border-box;
+	text-decoration: none;
+	color: inherit;
+}
+
+html,
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-optical-sizing: auto;
+	scroll-behavior: smooth;
+	overflow-x: hidden;
+}
