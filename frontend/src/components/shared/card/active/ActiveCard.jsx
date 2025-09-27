@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '../Card';
 import { Badge } from '../../badge/Badge';
 import Button, { BUTTON_AS } from '../../button/Button';
@@ -13,9 +14,19 @@ function isFull(activity) {
 
 export default function ActiveCard({ activity, showCreator = false, className = '', ...props }) {
 	const [imgError, setImgError] = React.useState(false);
+		const navigate = useNavigate();		
+
+	const linkTo = ROUTES.ACTIVE.withId(activity._id);
+
+	const handleCardClick = (e) => {
+		if (e.target.closest('a,button')) return;
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+		navigate(linkTo);
+
+	};
 
 	return (
-		<Card className={`${styles.card} ${className}`} {...props}>
+		<Card className={`${styles.card} ${className}`} onClick={handleCardClick} role="button" tabIndex={0} {...props}>
 			<div className={styles.imageWrapper}>
 				<img src={activity.images?.[0] || '/placeholder.png'} alt={activity.title || 'Hình ảnh hoạt động'} className={styles.image} loading='lazy' onError={() => setImgError(true)} style={imgError ? { display: 'none' } : {}} />
 				{imgError && <div className={styles.imagePlaceholder}>Hình ảnh không khả dụng</div>}
@@ -58,7 +69,7 @@ export default function ActiveCard({ activity, showCreator = false, className = 
 					)}
 				</div>
 				<div className={styles.btnWrapper}>
-					<Button as={BUTTON_AS.LINK} to={ROUTES.ACTIVE.withId(activity._id)} variant='primary' fillWidth aria-label={`Xem chi tiết hoạt động ${activity.title}`}>
+					<Button as={BUTTON_AS.LINK} to={ROUTES.ACTIVE.withId(activity._id)} variant='primary' fillWidth aria-label={`Xem chi tiết hoạt động ${activity.title}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
 						Xem chi tiết
 					</Button>
 				</div>

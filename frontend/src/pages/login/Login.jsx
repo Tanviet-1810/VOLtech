@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import AuthForm from '../../components/auth-form/AuthForm.jsx';
 import useAuthContext from '../../contexts/auth/useAuthContext.jsx';
 import { ROUTES } from '../../const/route.js';
@@ -13,7 +13,10 @@ export default function Login() {
 	const [values, setValues] = useState({ email: '', password: '' });
 	const [error, setError] = useState(null);
 	const navigate = useNavigate();
+	const location = useLocation();
 	const { login, loading } = useAuthContext();
+
+	const from = location.state?.from || ROUTES.HOME.path;
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -47,7 +50,7 @@ export default function Login() {
 		if (data?.error) {
 			setError(data.error || 'Đăng nhập thất bại');
 		} else {
-			navigate(ROUTES.HOME.path);
+			navigate(from, { replace: true });
 		}
 	};
 

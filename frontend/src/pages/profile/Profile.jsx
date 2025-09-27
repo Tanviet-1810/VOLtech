@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Profile.module.scss';
 import useAuthContext from '../../contexts/auth/useAuthContext.jsx';
 import AppSection from '../../components/shared/app-section/AppSection.jsx';
@@ -7,21 +8,32 @@ import LoadingSection from '../../components/shared/loading-section/LoadingSecti
 import LoadingOverlay from '../../components/shared/loading-overlay/LoadingOverlay.jsx';
 import ProfileHeader from './components/ProfileHeader/ProfileHeader.jsx';
 import ProfileInfoCard from './components/ProfileInfoCard/ProfileInfoCard.jsx';
-import ProfileActions from './components/ProfileActions/ProfileActions.jsx';
+import ProfileActions from './components/ProfileActions/ProfileActions.jsx';	
+import Button, { BUTTON_VARIANTS } from '../../components/shared/button/Button.jsx';
 import { ROUTES } from '../../const/route.js';
 
 export default function Profile() {
 	const { user, loading: userLoading, logout } = useAuthContext();
 	const navigate = useNavigate();
+	// const location = useLocation();
 	const [logoutLoading, setLogoutLoading] = useState(false);
 	const [logoutError, setLogoutError] = useState(null);
 
+	// const handleBack = () => {
+	// 	if (location.state?.from) {
+    //   		navigate(location.state.from);
+    // 	} else {
+    //  		navigate(ROUTES.HOME.path);
+    // 	}
+  	// };
+	
+
 	const handleEdit = useCallback(() => {
-		navigate(ROUTES.EDIT_PROFILE.path);
+		navigate(ROUTES.EDIT_PROFILE.path, { state: { from: ROUTES.PROFILE.path } });
 	}, [navigate]);
 
 	const handleActiveManage = useCallback(() => {
-		navigate(ROUTES.ACTIVE_MANAGE.path);
+		navigate(ROUTES.ACTIVE_MANAGE.path, { state: { from: ROUTES.PROFILE.path } });
 	}, [navigate]);
 
 	const handleLogout = useCallback(async () => {
@@ -38,6 +50,7 @@ export default function Profile() {
 		}
 	}, [logout, navigate]);
 
+
 	if (userLoading) {
 		return <LoadingSection message='Đang tải thông tin...' />;
 	}
@@ -47,12 +60,11 @@ export default function Profile() {
 			<LoadingOverlay isActive={logoutLoading} message='Đang đăng xuất...' />
 
 			<AppSection className={styles.profileSection}>
-				<div className={styles.profileContainer}>
+				<div className={styles.profileContainer}>						
 					<ProfileHeader user={user} />
 
 					<div className={styles.profileContent}>
 						<ProfileInfoCard user={user} />
-
 						<ProfileActions onProfileEdit={handleEdit} onActiveManage={handleActiveManage} onLogout={handleLogout} logoutLoading={logoutLoading} logoutError={logoutError} />
 					</div>
 				</div>

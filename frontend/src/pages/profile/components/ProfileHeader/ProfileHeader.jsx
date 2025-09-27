@@ -4,6 +4,7 @@ import styles from './ProfileHeader.module.scss';
 import AvatarPlaceholder from '../../../../assets/imgs/avatar-placeholder.png';
 import { highestRole, USER_ROLE_VIETNAMESE } from '../../../../const/user-role';
 
+
 const ProfileHeader = memo(({ user }) => {
 	return (
 		<div className={styles.profileHeader}>

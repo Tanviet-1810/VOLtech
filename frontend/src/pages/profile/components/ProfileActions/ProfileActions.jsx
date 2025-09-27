@@ -8,6 +8,11 @@ import useAuthContext from '../../../../contexts/auth/useAuthContext.jsx';
 const ProfileActions = memo(({ onProfileEdit, onActiveManage, onLogout, logoutLoading, logoutError }) => {
 	const { user } = useAuthContext();
 	const minRoleIsEditor = user && [USER_ROLE.ADMIN, USER_ROLE.MODERATOR].includes(highestRole(user.role));
+	
+	const handleCardClick = () => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+		onLogout();
+	};
 
 	return (
 		<>
@@ -26,7 +31,7 @@ const ProfileActions = memo(({ onProfileEdit, onActiveManage, onLogout, logoutLo
 				<Button variant={BUTTON_VARIANTS.PRIMARY} outlined onClick={onProfileEdit} className={styles.editBtn}>
 					Chỉnh sửa thông tin
 				</Button>
-				<Button variant={BUTTON_VARIANTS.ACCENT} onClick={onLogout} disabled={logoutLoading} className={styles.logoutBtn}>
+				<Button variant={BUTTON_VARIANTS.ACCENT} onClick={handleCardClick} disabled={logoutLoading} className={styles.logoutBtn} >
 					{logoutLoading ? 'Đang đăng xuất...' : 'Đăng xuất'}
 				</Button>
 			</div>

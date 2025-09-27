@@ -19,6 +19,11 @@
 	}
 }
 
+.backButton {
+	flex-shrink: 0;
+	width: fit-content;
+}
+
 .profileContent {
 	display: flex;
 	flex-direction: column;

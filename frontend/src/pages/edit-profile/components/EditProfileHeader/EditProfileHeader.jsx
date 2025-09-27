@@ -1,16 +1,31 @@
 import React, { memo } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './EditProfileHeader.module.scss';
 import { Edit3, ArrowLeft } from 'lucide-react';
 import Button, { BUTTON_VARIANTS } from '../../../../components/shared/button/Button.jsx';
+import { ROUTES } from '../../../../const/route.js';
 
-const EditProfileHeader = memo(({ user, onBack }) => {
+
+const EditProfileHeader = memo(({ user }) => {
+
+	const location = useLocation();
+	const navigate = useNavigate();
+
+	const handleBack = () => {
+ 		if (location.state?.from) {
+    		navigate(location.state.from);
+  		} else {
+    		navigate(ROUTES.PROFILE.path);
+  		}
+	};
+
 	return (
 		<div className={styles.header}>
 			<div className={styles.headerContent}>
-				<Button variant={BUTTON_VARIANTS.SECONDARY} outlined onClick={onBack} icon={<ArrowLeft size={16} />} className={styles.backButton}>
+				<Button variant={BUTTON_VARIANTS.SECONDARY} outlined onClick={handleBack} icon={<ArrowLeft size={16} />} className={styles.backButton}>
 					Quay lại
-				</Button>
+				</Button> 
 
 				<div className={styles.headerInfo}>
 					<div className={styles.iconWrapper}>

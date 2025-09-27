@@ -9,6 +9,7 @@ import Button, { BUTTON_VARIANTS } from '../../components/shared/button/Button';
 import { Badge, BADGE_SIZES, BADGE_VARIANTS } from '../../components/shared/badge/Badge';
 import useAuthContext from '../../contexts/auth/useAuthContext';
 import { getDetail, joinActive, leaveActive } from '../../services/api/v1/active-api.service';
+import useNotificationContext from '../../contexts/notification/useNotificationContext';
 import { ACTIVE_STATUS, ACTIVE_STATUS_VIETNAMESE } from '../../const/active-status';
 import styles from './ActiveDetailPage.module.scss';
 
@@ -34,6 +35,7 @@ export default function ActiveDetailPage() {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { isAuth, user } = useAuthContext();
+	const { addNotification } = useNotificationContext();
 
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
@@ -71,7 +73,7 @@ export default function ActiveDetailPage() {
 
 	const handleJoinClick = async () => {
 		if (!isAuth) {
-			navigate('/login');
+			navigate('/login', { state: { from: `/active/${id}` } }); 
 			return;
 		}
 
@@ -83,6 +85,13 @@ export default function ActiveDetailPage() {
 					...prevData,
 					registeredUsers: isJoined ? prevData.registeredUsers.filter((uid) => uid !== user._id) : [...prevData.registeredUsers, user._id],
 				}));
+				if (!isJoined && addNotification) {
+					addNotification({
+						message: `Bạn đã đăng ký hoạt động: ${data?.name || data?.title || 'Hoạt động'}`,
+						activityId: id,
+						activityName: data?.name || data?.title || '',
+					});
+				}
 			}
 		} catch (error) {
 			console.error('Error handling join/leave:', error);

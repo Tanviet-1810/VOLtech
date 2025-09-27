@@ -16,6 +16,7 @@ import RankPage from './pages/rank/RankPage.jsx';
 import EditProfilePage from './pages/edit-profile/EditProfilePage.jsx';
 import { USER_ROLE } from './const/user-role.js';
 import ManageActivePage from './pages/manage-active/ManageActivePage.jsx';
+import NotificationPage from './pages/notification/NotificationPage.jsx';
 
 const App = () => {
 	return (
@@ -30,6 +31,7 @@ const App = () => {
 					<Route path={ROUTES.PROFILE.path} element={<Profile />} />
 					<Route path={ROUTES.RANK.path} element={<RankPage />} />
 					<Route path={ROUTES.EDIT_PROFILE.path} element={<EditProfilePage />} />
+					<Route path={ROUTES.NOTIFICATION.path} element={<NotificationPage />} />
 				</Route>
 				<Route element={<AlignCenterLayout />}>
 					<Route path={ROUTES.LOGIN.path} element={<Login />} />

@@ -50,6 +50,11 @@ export const ROUTES = {
 		name: 'Active Manage',
 		description: 'Trang quản lý các mục đang hoạt động',
 	},
+	NOTIFICATION: {
+		path: '/notification',
+		name: 'Notification',
+		description: 'Trang thông báo',
+	},
 	HELP: {
 		path: '/help',
 		name: 'Help',

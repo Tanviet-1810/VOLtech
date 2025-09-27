@@ -5,6 +5,7 @@ import useAuthContext from '../../../contexts/auth/useAuthContext.jsx';
 import LoadingSection from '../../shared/loading-section/LoadingSection.jsx';
 import { highestRole, USER_ROLE } from '../../../const/user-role.js';
 import { ROUTES } from '../../../const/route.js';
+import NotificationContextProvider from '../../../contexts/notification/NotificationContextProvider';
 
 export default function MainLayout({ protectedLayout = false, requireRoles }) {
 	const { isAuth, user, loading } = useAuthContext();
@@ -26,16 +27,14 @@ export default function MainLayout({ protectedLayout = false, requireRoles }) {
 	}
 
 	return (
-		<>
+		<NotificationContextProvider>
+			<>
 			<Header />
-			<main
-				style={{
-					minHeight: '70vh',
-				}}
-			>
+			<main style={{ minHeight: '70vh' }}>
 				<Outlet />
 			</main>
 			<Footer />
-		</>
-	);
+			</>
+		</NotificationContextProvider>
+		);
 }
