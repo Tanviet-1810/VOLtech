@@ -1,5 +1,5 @@
 {
-	"name": "_backend",
+	"name": "backend",
 	"version": "1.0.0",
 	"description": "Vol Tech Backend",
 	"main": "index.js",
