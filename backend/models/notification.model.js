@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import User from './user.model.js';
+import Active from './active.model.js';
 
 const notificationSchema = new mongoose.Schema({
   message: { type: String, required: true },

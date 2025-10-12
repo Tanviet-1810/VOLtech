@@ -53,6 +53,43 @@ export const getUsers = async (req, res) => {
 	}
 };
 
+// Public endpoint: trả về bảng xếp hạng người dùng (không yêu cầu xác thực)
+export const getPublicRankings = async (req, res) => {
+	try {
+		const { page, limit, sortOrder } = req.query;
+		const options = {
+			page: Number(page) || 1,
+			limit: Number(limit) || 10,
+		};
+
+		// luôn sắp xếp theo điểm (score) theo thứ tự desc/asc nếu được truyền
+		const order = (sortOrder && sortOrder.toLowerCase() === 'asc') ? 1 : -1;
+		options.sort = { score: order };
+
+		// chỉ lọc những user chưa bị xóa
+		const query = { deletedAt: null };
+
+		const [err, users, errCount, totalUsers] = await Promise.all([
+			userService.getList(query, { passwordHashed: 0, salt: 0 }, options),
+			userService.count(query),
+		]).then(([listResult, countResult]) => [...listResult, ...countResult]);
+
+		if (err) return res.status(err.code || 404).json({ error: err.message });
+
+		const paginate = {
+			totalItems: errCount ? 0 : totalUsers,
+			currentPage: options.page,
+			totalPages: errCount ? 1 : Math.ceil(totalUsers / options.limit),
+			limit: options.limit,
+		};
+
+		return res.status(200).json({ items: users, paginate });
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ error: 'Lỗi máy chủ nội bộ' });
+	}
+};
+
 export const updateUser = async (req, res) => {
 	try {
 		const { id } = req.params;

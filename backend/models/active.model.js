@@ -50,8 +50,15 @@ const ActiveSchema = new mongoose.Schema(
 		},
 		registeredUsers: [
 			{
-				type: mongoose.Schema.Types.ObjectId,
-				ref: 'User',
+				user: {
+					type: mongoose.Schema.Types.ObjectId,
+					ref: 'User',
+				},
+				isApplied: {
+					type: Boolean,
+					default: false,
+				},
+				_id: false
 			},
 		],
 		createdBy: {

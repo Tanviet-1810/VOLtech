@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import { requireAuth } from '../../middleware/index.js';
-import { getMe, getUsers, updateUser } from '../../controllers/v1/user.controller.js';
+import { getMe, getUsers, updateUser, getPublicRankings } from '../../controllers/v1/user.controller.js';
 
 const router = Router();
 
 router.get('/me', requireAuth, getMe);
 router.get('/', requireAuth, getUsers);
+router.get('/rankings', getPublicRankings); // public leaderboard endpoint
 router.patch('/:id', requireAuth, updateUser);
 
 export default router;
