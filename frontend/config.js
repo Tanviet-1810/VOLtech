@@ -6,6 +6,7 @@ const envSchema = z.object({
 	VITE_API_PREFIX: z.string().default('/api'),
 	VITE_API_VER: z.string().default('/v1'),
 	VITE_API_TIMEOUT: z.coerce.number().default(5000),
+	VITE_CHAT_BOT_API_KEY: z.string()
 });
 
 const ENV = envSchema.parse({
@@ -14,9 +15,14 @@ const ENV = envSchema.parse({
 	VITE_API_PREFIX: import.meta.env.VITE_API_PREFIX,
 	VITE_API_VER: import.meta.env.VITE_API_VER,
 	VITE_API_TIMEOUT: import.meta.env.VITE_API_TIMEOUT,
+	VITE_CHAT_BOT_API_KEY: import.meta.env.VITE_CHAT_BOT_API_KEY,
 });
 
 const APP_CONFIG = {
+	chat_bot: {
+		api_key: ENV.VITE_CHAT_BOT_API_KEY,
+		model: 'gemini-2.5-flash-lite'
+	},
 	api: {
 		baseURL: ENV.VITE_API_BASE_URL,
 		port: ENV.VITE_API_PORT,

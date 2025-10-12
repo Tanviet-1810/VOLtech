@@ -14,6 +14,16 @@ const ProfileActions = memo(({ onProfileEdit, onActiveManage, onLogout, logoutLo
 		onLogout();
 	};
 
+	const handleActiveManageClick = () => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+		if (onActiveManage) onActiveManage();
+	};
+
+	const handleProfileEditClick = () => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+		if (onProfileEdit) onProfileEdit();
+	};
+
 	return (
 		<>
 			{logoutError && (
@@ -24,11 +34,11 @@ const ProfileActions = memo(({ onProfileEdit, onActiveManage, onLogout, logoutLo
 
 			<div className={styles.actions}>
 				{minRoleIsEditor && (
-					<Button variant={BUTTON_VARIANTS.SECONDARY} onClick={onActiveManage} className={styles.activeBtn}>
+					<Button variant={BUTTON_VARIANTS.SECONDARY} onClick={handleActiveManageClick} className={styles.activeBtn}>
 						Quản lý hoạt động
 					</Button>
 				)}
-				<Button variant={BUTTON_VARIANTS.PRIMARY} outlined onClick={onProfileEdit} className={styles.editBtn}>
+				<Button variant={BUTTON_VARIANTS.PRIMARY} outlined onClick={handleProfileEditClick} className={styles.editBtn}>
 					Chỉnh sửa thông tin
 				</Button>
 				<Button variant={BUTTON_VARIANTS.ACCENT} onClick={handleCardClick} disabled={logoutLoading} className={styles.logoutBtn} >

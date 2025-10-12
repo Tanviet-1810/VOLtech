@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './ActivePage.module.scss';
 import AppSection from '../../components/shared/app-section/AppSection';
-import ActivesContextProvider from '../../contexts/actives-page/ActivesContextProvider';
 import useActivesContext from '../../contexts/actives-page/useActivesContext';
 import ActiveList from './components/ActiveList';
 import ActiveFilter from './components/ActiveFilter';
@@ -25,8 +24,7 @@ function ActivePageContent() {
 
 export default function ActivePage() {
 	return (
-		<ActivesContextProvider>
+		
 			<ActivePageContent />
-		</ActivesContextProvider>
 	);
 }

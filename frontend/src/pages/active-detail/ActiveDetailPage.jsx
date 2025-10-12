@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
 import { MapPin, CalendarClock, Users, Home, Award, MapPinHouse } from 'lucide-react';
 
 import AppSection from '../../components/shared/app-section/AppSection';
@@ -12,6 +11,8 @@ import { getDetail, joinActive, leaveActive } from '../../services/api/v1/active
 import useNotificationContext from '../../contexts/notification/useNotificationContext';
 import { ACTIVE_STATUS, ACTIVE_STATUS_VIETNAMESE } from '../../const/active-status';
 import styles from './ActiveDetailPage.module.scss';
+import '../../styles/markdown.scss'; // Import style markdown
+import ReactMarkdown from 'react-markdown';
 
 function formatDateRange(start, end) {
 	const opts = {
@@ -42,7 +43,7 @@ export default function ActiveDetailPage() {
 	const [error, setError] = useState('');
 	const [actionLoading, setActionLoading] = useState(false);
 
-	const isJoined = isAuth && user && data?.registeredUsers?.includes(user._id);
+	const isJoined = isAuth && user && Array.isArray(data?.registeredUsers) && data.registeredUsers.some(u => (u.user ?? u) === user._id);
 	const isFilled = data && isFull(data);
 	const canRegister = data?.status === ACTIVE_STATUS.OPEN && (!isFilled || isJoined);
 	const buttonDisabled = !canRegister || actionLoading;

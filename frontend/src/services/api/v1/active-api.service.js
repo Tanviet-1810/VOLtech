@@ -13,6 +13,8 @@ export const getList = ({ title, status, commune, createdBy, sortBy, sortOrder, 
 		if (sortOrder) query.sortOrder = sortOrder;
 	}
 	if (joined !== undefined) query.joined = joined;
+	// ensure joined is passed as a string 'true'/'false' so backend checks like joined == 'true' work reliably
+	if (joined !== undefined) query.joined = typeof joined === 'boolean' ? (joined ? 'true' : 'false') : joined;
 	if (isCreator !== undefined) query.isCreator = isCreator;
 	if (page) query.page = page;
 	if (limit) query.limit = limit;

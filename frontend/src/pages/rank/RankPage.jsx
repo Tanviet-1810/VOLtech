@@ -4,11 +4,13 @@ import AppSection from '../../components/shared/app-section/AppSection.jsx';
 import LoadingSection from '../../components/shared/loading-section/LoadingSection.jsx';
 import styles from './RankPage.module.scss';
 import { getUserRankings } from '../../services/api/v1/score-api.service.js';
+import useAuthContext from '../../contexts/auth/useAuthContext.jsx';
 
 export default function RankPage() {
 	const [rankData, setRankData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const { user: currentUser } = useAuthContext();
 
 	useEffect(() => {
 		let ignore = false;
@@ -46,17 +48,20 @@ export default function RankPage() {
 						</tr>
 					</thead>
 					<tbody>
-						{rankData.map((user, index) => (
-							<tr key={user._id} className={index < 3 ? styles.topThree : ''}>
-								<td>
-									<span className={styles.rank}>#{index + 1}</span>
-									{index === 0 && <Crown className={styles.crown} size={16} />}
-								</td>
-								<td>{user.name}</td>
-								<td>{user.unit}</td>
-								<td>{user.score}</td>
-							</tr>
-						))}
+						{rankData.map((user, index) => {
+							const isCurrent = currentUser && (user._id === currentUser._id || user.email === currentUser.email);
+							return (
+								<tr key={user._id || index} className={`${index < 3 ? styles.topThree : ''} ${isCurrent ? styles.currentUser : ''}`}>
+									<td>
+										<span className={styles.rank}>#{index + 1}</span>
+										{index === 0 && <Crown className={styles.crown} size={16} />}
+									</td>
+									<td>{user.name}</td>
+									<td>{user.unit}</td>
+									<td>{user.score}</td>
+								</tr>
+							);
+						})}
 					</tbody>
 				</table>
 			)}

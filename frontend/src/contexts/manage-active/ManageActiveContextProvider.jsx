@@ -5,7 +5,7 @@ import * as provinceApi from '../../services/api/v1/province-api.service';
 import * as communeApi from '../../services/api/v1/commune-api.service';
 
 export default function ManageActiveContextProvider({ children }) {
-	const [activities, setActivities] = useState([]);
+	const [activities, setActivities] = useState([]); // <-- Đây là nơi lưu danh sách hoạt động
 	const [loading, setLoading] = useState(false);
 	const [creating, setCreating] = useState(false);
 	const [updating, setUpdating] = useState(false);
@@ -24,7 +24,7 @@ export default function ManageActiveContextProvider({ children }) {
 				throw new Error(errorData.error || 'Fail');
 			}
 			const data = await response.json();
-			setActivities(data.items || []);
+			setActivities(data.items || []); // <-- Dữ liệu từ API được lưu vào activities
 			setPagination(data.paginate || { page: 1, limit: 10, total: 0 });
 		} catch (error) {
 			console.error('Failed to fetch activities:', error);
@@ -45,13 +45,31 @@ export default function ManageActiveContextProvider({ children }) {
 
 	const fetchCommunes = useCallback(async (provinceId) => {
 		try {
-			const response = await communeApi.getCommunes({ province: provinceId });
-			if (!response.ok) {
-				const errorData = await response.json();
-				throw new Error(errorData.error || 'Fail');
+			if (!provinceId) {
+				setCommunes([]);
+				return;
 			}
-			const data = await response.json();
-			setCommunes(data.items || []);
+			let allCommunes = [];
+			let page = 1;
+			let hasMore = true;
+			const limit = 100;
+
+			while (hasMore) {
+				const response = await communeApi.getCommunes({ province: provinceId, page, limit });
+				if (!response.ok) {
+					const errorData = await response.json();
+					throw new Error(errorData.error || 'Fail');
+				}
+				const data = await response.json();
+				const items = data.items || [];
+				allCommunes = allCommunes.concat(items);
+				if (items.length < limit) {
+					hasMore = false;
+				} else {
+					page += 1;
+				}
+			}
+			setCommunes(allCommunes);
 		} catch (error) {
 			console.error('Failed to fetch communes:', error);
 		}
@@ -114,11 +132,7 @@ export default function ManageActiveContextProvider({ children }) {
 	}, [fetchActivities, fetchProvinces]);
 
 	useEffect(() => {
-		if (selectedProvince) {
-			fetchCommunes(selectedProvince);
-		} else {
-			setCommunes([]);
-		}
+		fetchCommunes(selectedProvince);
 	}, [selectedProvince, fetchCommunes]);
 
 	const value = {
@@ -140,3 +154,4 @@ export default function ManageActiveContextProvider({ children }) {
 
 	return <ManageActiveContext.Provider value={value}>{children}</ManageActiveContext.Provider>;
 }
+

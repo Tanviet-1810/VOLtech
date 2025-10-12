@@ -63,7 +63,7 @@ export default function ActiveCard({ activity, showCreator = false, className = 
 					</div>
 					{showCreator && activity.createdBy?.name && (
 						<div className={styles.detailItem}>
-							<span className={styles.creatorLabel}>Người tạo:</span>
+							<span className={styles.creatorLabel}>Đơn vị tạo:</span>
 							<span>{activity.createdBy.name}</span>
 						</div>
 					)}

@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { ArrowLeft } from 'lucide-react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './Profile.module.scss';
 import useAuthContext from '../../contexts/auth/useAuthContext.jsx';
 import AppSection from '../../components/shared/app-section/AppSection.jsx';
@@ -15,21 +14,14 @@ import { ROUTES } from '../../const/route.js';
 export default function Profile() {
 	const { user, loading: userLoading, logout } = useAuthContext();
 	const navigate = useNavigate();
-	// const location = useLocation();
 	const [logoutLoading, setLogoutLoading] = useState(false);
 	const [logoutError, setLogoutError] = useState(null);
 
-	// const handleBack = () => {
-	// 	if (location.state?.from) {
-    //   		navigate(location.state.from);
-    // 	} else {
-    //  		navigate(ROUTES.HOME.path);
-    // 	}
-  	// };
+
 	
 
 	const handleEdit = useCallback(() => {
-		navigate(ROUTES.EDIT_PROFILE.path, { state: { from: ROUTES.PROFILE.path } });
+		navigate(ROUTES.EDIT_PROFILE.path, { state: { from: ROUTES.PROFILE.path, rootFrom: window.history.state?.usr?.rootFrom || ROUTES.PROFILE.path } });
 	}, [navigate]);
 
 	const handleActiveManage = useCallback(() => {
@@ -58,10 +50,10 @@ export default function Profile() {
 	return (
 		<>
 			<LoadingOverlay isActive={logoutLoading} message='Đang đăng xuất...' />
-
 			<AppSection className={styles.profileSection}>
 				<div className={styles.profileContainer}>						
 					<ProfileHeader user={user} />
+					 
 
 					<div className={styles.profileContent}>
 						<ProfileInfoCard user={user} />

@@ -1,0 +1,150 @@
+.chatWidget {
+  position: fixed;
+  bottom: 1.25em;
+  right: 1.25em;
+  z-index: 999;
+  font-family: sans-serif;
+  max-width: 95vw; // responsive
+}
+
+.toggleButton {
+  background: var(--color-accent);
+  border: none;
+  padding: 0.75em;
+  border-radius: 50%;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: var(--txt-white);
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0.5em rgba(0,0,0,0.3);
+  }
+}
+
+.chatBox {
+  width: 25em;
+  max-width: 90vw;
+  height: 28.125em;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 0.3125em 0.9375em rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  background: var(--color-white);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-primary);
+  color: var(--txt-white);
+  padding: 0.625em 0.9375em;
+  font-weight: var(--font-bold);
+}
+
+.header button {
+  color: var(--color-wwhile);
+  background-color: var(--color-primary);
+  font-size: 1.5em;
+}
+
+.messages {
+  flex: 1;
+  padding: 0.625em;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  background: var(--res-ultra-light-gray);
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    width: 0.375em;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--res-medium-gray);
+    border-radius: 0.1875em;
+  }
+}
+
+.userMessage, .botMessage {
+  max-width: 70%;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  animation: fadeBottomToTop 0.3s ease forwards;
+}
+
+.userMessage {
+  align-self: flex-end;
+  background: var(--color-primary); // màu chính theme
+  color: var(--txt-white);
+  padding: 0.5em 0.75em;
+  border-radius: 0.75em 0.75em 0 0.75em;
+}
+
+.botMessage {
+  align-self: flex-start;
+  background: var(--res-light-gray); // màu xám nhạt
+  color: var(--txt-primary);
+  padding: 0.5em 0.75em;
+  border-radius: 0.75em 0.75em 0.75em 0;
+}
+
+.activityLink {
+  color: var(--color-accent);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.inputArea {
+  display: flex;
+  border-top: 0.0625em solid var(--border-lightgray);
+
+  input {
+    flex: 1;
+    padding: 0.625em;
+    border: none;
+    outline: none;
+    font-size: 1.25em;
+    transition: box-shadow 0.2s;
+
+    &:focus {
+      box-shadow: 0 0 0 2px var(--color-accent-light);
+      border-radius: 0.25em;
+    }
+  }
+
+  button {
+    background: var(--color-accent);
+    border: none;
+    padding: 0.5em 0.75em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--txt-white);
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* Animations */
+.fade-in { animation: fadeIn 0.5s ease forwards; }
+.fade-out { animation: fadeOut 0.5s ease forwards; }
+.fade-bottom-to-top { opacity: 0; transform: translateY(1.25em); animation: fadeBottomToTop 0.5s ease forwards; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes fadeBottomToTop { from { opacity: 0; transform: translateY(1.25em);} to { opacity:1; transform: translateY(0);} }

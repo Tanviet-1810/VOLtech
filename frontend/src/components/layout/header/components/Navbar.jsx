@@ -12,8 +12,8 @@ export default function Navbar({ onItemClick = () => {} }) {
 	const navRoutes = useMemo(
 		() => [
 			{ path: ROUTES.HOME.path, label: 'Trang chủ' },
-			{ path: ROUTES.ACTIVE.path, label: 'Hoạt động' },
 			{ path: ROUTES.ABOUT.path, label: 'Giới thiệu' },
+			{ path: ROUTES.ACTIVE.path, label: 'Hoạt động' },
 			{ path: ROUTES.RANK.path, label: 'Xếp hạng' },
 		],
 		[]

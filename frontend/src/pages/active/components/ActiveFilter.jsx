@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styles from './ActiveFilter.module.scss';
 import Button from '../../../components/shared/button/Button';
 import useActivesContext from '../../../contexts/actives-page/useActivesContext';
+import useAuthContext from '../../../contexts/auth/useAuthContext.jsx';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../../const/route.js';
 import { ACTIVE_STATUS } from '../../../const/active-status';
 import { getProvinces, getCommunes } from '../../../services/api/v1';
 
@@ -16,6 +19,7 @@ const SORT_OPTIONS = [
 
 export default function ActiveFilter() {
 	const { updateQuery } = useActivesContext();
+	const { user: currentUser } = useAuthContext();
 	const [title, setTitle] = useState('');
 	const [status, setStatus] = useState('');
 	const [selectedProvince, setSelectedProvince] = useState('');
@@ -77,9 +81,19 @@ export default function ActiveFilter() {
 		setCommune('');
 	};
 
+	const navigate = useNavigate();
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		updateQuery({ title, status, commune, sortBy, sortOrder, joined });
+		// backend expects `joined` only when there's a logged-in user (attachUser uses req.user)
+		const patch = { title, status, commune, sortBy, sortOrder };
+		// include joined explicitly so we can clear previous joined filter when unchecked
+		if (currentUser) {
+			patch.joined = joined ? true : undefined;
+		} else {
+			patch.joined = undefined;
+		}
+		updateQuery(patch);
 	};
 
 	const handleSortChange = (e) => {
@@ -123,9 +137,21 @@ export default function ActiveFilter() {
 				))}
 			</select>
 			<label className={styles.checkboxLabel}>
-				<input type='checkbox' checked={joined} onChange={() => setJoined(!joined)} className={styles.checkbox} />
+				<input
+					type='checkbox'
+					checked={joined}
+					onChange={() => {
+						if (!currentUser) {
+							navigate(ROUTES.LOGIN.path);
+							return;
+						}
+						setJoined(!joined);
+					}}
+					className={styles.checkbox}
+					/>
 				<span>Bạn đã tham gia</span>
 			</label>
+
 			<Button type='submit' variant='primary'>
 				Lọc
 			</Button>

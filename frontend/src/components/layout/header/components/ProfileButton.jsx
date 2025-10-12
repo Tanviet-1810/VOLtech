@@ -6,7 +6,7 @@ export default function Profile({ user, loading }) {
 	const avatarSrc = user?.avatar || AvatarPlaceholder;
 	const pointText = user?.score ?? 0;
 	return (
-		<>
+		<div className={styles.Profile}>
 			<div className={styles.avatar}>
 				<img src={avatarSrc} alt={user?.name || 'Loading'} />
 			</div>
@@ -18,7 +18,8 @@ export default function Profile({ user, loading }) {
 						<img src={RankIcon} alt={pointText} />
 					</div>
 				</div>
+
 			</div>
-		</>
+		</div>
 	);
 }

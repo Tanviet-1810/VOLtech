@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './EditProfilePage.module.scss';
 import useAuthContext from '../../contexts/auth/useAuthContext.jsx';
@@ -51,14 +51,17 @@ export default function EditProfilePage() {
 		[user?._id, setUser, navigate]
 	);
 
+	useEffect(() => {
+		if (!user && !userLoading) {
+			navigate(ROUTES.LOGIN.path, { replace: true });
+		}
+	}, [user, userLoading, navigate]);
+
 	if (userLoading) {
 		return <LoadingSection message='Đang tải thông tin...' />;
 	}
 
-	if (!user) {
-		navigate(ROUTES.LOGIN.path);
-		return null;
-	}
+	if (!user) return null;
 
 	return (
 		<>
@@ -69,7 +72,12 @@ export default function EditProfilePage() {
 					<EditProfileHeader user={user} onBack={handleBack} />
 
 					<div className={styles.editProfileContent}>
-						<EditProfileForm user={user} onSubmit={handleSubmit} loading={updateLoading} error={updateError} />
+						<EditProfileForm
+							user={user}
+							onSubmit={handleSubmit}
+							loading={updateLoading}
+							error={updateError}
+						/>
 					</div>
 				</div>
 			</AppSection>

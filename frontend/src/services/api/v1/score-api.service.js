@@ -11,5 +11,6 @@ export const getUserRankings = (params = {}) => {
 	}).toString();
 
 	const cacheKey = `user_rankings_${page}_${limit}_${sortOrder}`;
-	return withApiCache(cacheKey, httpGet, `/user?${query}`);
+	// call public rankings endpoint so frontend can display leaderboard without auth
+	return withApiCache(cacheKey, httpGet, `/user/rankings?${query}`);
 };

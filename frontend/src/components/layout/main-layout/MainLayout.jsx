@@ -6,6 +6,9 @@ import LoadingSection from '../../shared/loading-section/LoadingSection.jsx';
 import { highestRole, USER_ROLE } from '../../../const/user-role.js';
 import { ROUTES } from '../../../const/route.js';
 import NotificationContextProvider from '../../../contexts/notification/NotificationContextProvider';
+import ChatBotContextProvider from '../../../contexts/chat-bot/ChatBotContextProvider.jsx';
+import ActivesContextProvider from '../../../contexts/actives-page/ActivesContextProvider.jsx'
+import ChatWidget from '../../../contexts/chat-bot/ChatWidget.jsx';
 
 export default function MainLayout({ protectedLayout = false, requireRoles }) {
 	const { isAuth, user, loading } = useAuthContext();
@@ -27,14 +30,19 @@ export default function MainLayout({ protectedLayout = false, requireRoles }) {
 	}
 
 	return (
-		<NotificationContextProvider>
-			<>
-			<Header />
-			<main style={{ minHeight: '70vh' }}>
-				<Outlet />
-			</main>
-			<Footer />
-			</>
-		</NotificationContextProvider>
-		);
+		<ActivesContextProvider>
+			<ChatBotContextProvider>
+				<NotificationContextProvider>
+					<>
+						<Header />
+						<main style={{ minHeight: '70vh' }}>
+							<Outlet />
+						</main>
+						<Footer />
+					</>
+					<ChatWidget />
+				</NotificationContextProvider>
+			</ChatBotContextProvider>
+		</ActivesContextProvider>
+	);
 }

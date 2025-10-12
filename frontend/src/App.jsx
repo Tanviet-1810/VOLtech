@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import MainLayout from './components/layout/main-layout/MainLayout.jsx';
 import Login from './pages/login/Login';
@@ -18,30 +17,33 @@ import { USER_ROLE } from './const/user-role.js';
 import ManageActivePage from './pages/manage-active/ManageActivePage.jsx';
 import NotificationPage from './pages/notification/NotificationPage.jsx';
 
+
 const App = () => {
 	return (
 		<AuthContextProvider>
-			<Routes>
-				<Route element={<MainLayout />}>
-					<Route index element={<Home />} />
-					<Route path={ROUTES.HOME.path} element={<Home />} />
-					<Route path={ROUTES.ACTIVE.path} element={<ActivePage />} />
-					<Route path={ROUTES.ACTIVE.withId(':id')} element={<ActiveDetailPage />} />
-					<Route path={ROUTES.ABOUT.path} element={<AboutPage />} />
-					<Route path={ROUTES.PROFILE.path} element={<Profile />} />
-					<Route path={ROUTES.RANK.path} element={<RankPage />} />
-					<Route path={ROUTES.EDIT_PROFILE.path} element={<EditProfilePage />} />
-					<Route path={ROUTES.NOTIFICATION.path} element={<NotificationPage />} />
-				</Route>
-				<Route element={<AlignCenterLayout />}>
-					<Route path={ROUTES.LOGIN.path} element={<Login />} />
-					<Route path={ROUTES.REGISTER.path} element={<Register />} />
-				</Route>
-				<Route path='/manage' element={<MainLayout protectedLayout={true} requireRoles={[USER_ROLE.ADMIN, USER_ROLE.MODERATOR]} />}>
-					<Route path='active' element={<ManageActivePage />} />
-				</Route>
-				<Route path='*' element={<NotFoundPage />} />
-			</Routes>
+
+					<Routes>
+						<Route element={<MainLayout />}>
+							<Route index element={<Home />} />
+							<Route path={ROUTES.HOME.path} element={<Home />} />
+							<Route path={ROUTES.ACTIVE.path} element={<ActivePage />} />
+							<Route path={ROUTES.ACTIVE.withId(':id')} element={<ActiveDetailPage />} />
+							<Route path={ROUTES.ABOUT.path} element={<AboutPage />} />
+							<Route path={ROUTES.PROFILE.path} element={<Profile />} />
+							<Route path={ROUTES.RANK.path} element={<RankPage />} />
+							<Route path={ROUTES.EDIT_PROFILE.path} element={<EditProfilePage />} />
+							<Route path={ROUTES.NOTIFICATION.path} element={<NotificationPage />} />
+						</Route>
+						<Route element={<AlignCenterLayout />}>
+							<Route path={ROUTES.LOGIN.path} element={<Login />} />
+							<Route path={ROUTES.REGISTER.path} element={<Register />} />
+						</Route>
+						<Route path='/manage' element={<MainLayout protectedLayout={true} requireRoles={[USER_ROLE.ADMIN, USER_ROLE.MODERATOR]} />}>
+							<Route path='active' element={<ManageActivePage />} />
+						</Route>
+							<Route path='*' element={<NotFoundPage />} />
+					</Routes>
+	
 		</AuthContextProvider>
 	);
 };

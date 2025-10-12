@@ -5,6 +5,7 @@ import Input from '../../../components/input/Input';
 import Button, { BUTTON_VARIANTS } from '../../../components/shared/button/Button';
 import { useManageActiveContext } from '../../../contexts/manage-active/ManageActiveContext';
 import { ACTIVE_STATUS, ACTIVE_STATUS_VIETNAMESE } from '../../../const/active-status';
+import Select from 'react-select';
 
 function ActivityForm({ activity = null, onSubmit, onCancel }) {
 	const { provinces, communes, selectedProvince, setSelectedProvince, creating, updating } = useManageActiveContext();
@@ -102,6 +103,11 @@ function ActivityForm({ activity = null, onSubmit, onCancel }) {
 
 	const isSubmitting = creating || updating;
 
+	const communeOptions = communes.map(commune => ({
+		value: commune._id,
+		label: commune.name
+	}));
+
 	return (
 		<form className={styles.form} onSubmit={handleSubmit}>
 			<div className={styles.formGrid}>
@@ -149,14 +155,15 @@ function ActivityForm({ activity = null, onSubmit, onCancel }) {
 
 				<div className={styles.formGroup}>
 					<label className={styles.label}>Xã/Phường</label>
-					<select className={styles.select} name='commune' value={formData.commune} onChange={handleChange} disabled={!selectedProvince}>
-						<option value=''>Chọn xã/phường</option>
-						{communes.map((commune) => (
-							<option key={commune._id} value={commune._id}>
-								{commune.name}
-							</option>
-						))}
-					</select>
+					<Select
+						classNamePrefix="react-select"
+						options={communeOptions}
+						value={communeOptions.find(opt => opt.value === formData.commune) || null}
+						onChange={option => handleChange({ target: { name: 'commune', value: option ? option.value : '' } })}
+						isDisabled={!selectedProvince}
+						placeholder="Chọn xã/phường"
+						menuPlacement="bottom" // Luôn hướng xuống
+					/>
 					{errors.commune && <span className={styles.error}>{errors.commune}</span>}
 				</div>
 
@@ -191,3 +198,4 @@ ActivityForm.propTypes = {
 };
 
 export default ActivityForm;
+
