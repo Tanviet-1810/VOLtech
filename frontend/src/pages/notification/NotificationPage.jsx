@@ -13,7 +13,6 @@ export default function NotificationPage() {
       <NotificationList notifications={notifications} />
       {notifications.length === 0 && (
         <div className={styles.emptyMessage}>
-          Bạn chưa có thông báo nào
         </div>
       )}
     </AppSection>
