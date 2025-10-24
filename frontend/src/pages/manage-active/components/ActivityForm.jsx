@@ -99,11 +99,6 @@ function ActivityForm({ activity = null, onSubmit, onCancel }) {
 		};
 
 		onSubmit(submitData);
-
-		const formElement = document.querySelector(`.${styles.form}`);
-			if (formElement) {
-				formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-		}	
 	};
 
 	const isSubmitting = creating || updating;

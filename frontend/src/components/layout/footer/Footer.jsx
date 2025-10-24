@@ -23,13 +23,13 @@ export default function Footer() {
 							<h3 className={styles.linksTitle}>Liên kết nhanh</h3>
 							<ul className={styles.linkList}>
 								<li>
-									<Link to={ROUTES.ACTIVE.path} className={styles.link}>
+									<Link to={ROUTES.ACTIVE.path} className={styles.link} onClick={handleClick}>
 										Hoạt động thiện nguyện
 									</Link>
 								</li>
 								<li></li>
 								<li>
-									<Link to={ROUTES.CONTACT.path} className={styles.link}>
+									<Link to={ROUTES.CONTACT.path} className={styles.link} onClick={handleClick}>
 										Liên hệ
 									</Link>
 								</li>
@@ -40,13 +40,13 @@ export default function Footer() {
 							<h3 className={styles.linksTitle}>Hỗ trợ</h3>
 							<ul className={styles.linkList}>
 								<li>
-									<Link to={ROUTES.HELP.path} className={styles.link}>
+									<Link to={ROUTES.HELP.path} className={styles.link} onClick={handleClick}>
 										Trợ giúp
 									</Link>
 								</li>
 								<li></li>
 								<li>
-									<Link to={ROUTES.TERMS.path} className={styles.link}>
+									<Link to={ROUTES.ABOUT.path} className={styles.link} onClick={handleClick}>
 										Điều khoản sử dụng
 									</Link>
 								</li>

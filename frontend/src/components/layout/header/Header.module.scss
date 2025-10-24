@@ -53,6 +53,7 @@
 	background-clip: text;
 	position: relative;
 	font-size: 1.2em;
+	white-space: nowrap;
 
 	&::after {
 		content: '';

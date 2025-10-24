@@ -124,6 +124,10 @@
     }
 
     @media (max-width: $app-mobile) {
+        th:nth-child(3),
+        td:nth-child(3) {
+            display: none; 
+        }
         font-size: 0.8rem;
 
         th,
@@ -180,3 +184,4 @@
 .pageInfo {
     font-weight: 500;
 }
+

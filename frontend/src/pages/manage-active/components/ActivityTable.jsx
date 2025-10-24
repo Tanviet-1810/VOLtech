@@ -56,28 +56,40 @@ function ActivityTable({ activities, loading, onEdit, onDelete, deleting }) {
 					</thead>
 					<tbody>
 						{activities.map((activity) => (
-							<tr key={activity._id}>
+							<tr key={activity._id} className={styles.tableRow}>
 								<td className={styles.titleCell}>
 									<div className={styles.titleContent}>
 										<h4 className={styles.title}>{activity.title}</h4>
 										<p className={styles.location}>{activity.location}</p>
 									</div>
 								</td>
-								<td>{formatDate(activity.startDate)}</td>
-								<td>{formatDate(activity.endDate)}</td>
-								<td className={styles.pointsCell}>{activity.points}</td>
-								<td className={styles.participantsCell}>
+								<td data-label="Ngày bắt đầu">{formatDate(activity.startDate)}</td>
+								<td data-label="Ngày kết thúc">{formatDate(activity.endDate)}</td>
+								<td data-label="Điểm" className={styles.pointsCell}>
+									{activity.points}
+								</td>
+								<td data-label="Số lượng" className={styles.participantsCell}>
 									{activity.registeredUsers?.length || 0}/{activity.maxParticipants}
 								</td>
-								<td>
-									<span className={`${styles.statusBadge} ${getStatusClass(activity.status)}`}>{getStatusText(activity.status)}</span>
+								<td data-label="Trạng thái">
+									<span className={`${styles.statusBadge} ${getStatusClass(activity.status)}`}>
+										{getStatusText(activity.status)}
+									</span>
 								</td>
-								<td>
+								<td data-label="Thao tác">
 									<div className={styles.actions}>
-										<Button variant={BUTTON_VARIANTS.SECONDARY} onClick={() => onEdit(activity)} disabled={deleting}>
+										<Button
+											variant={BUTTON_VARIANTS.SECONDARY}
+											onClick={() => onEdit(activity)}
+											disabled={deleting}
+										>
 											Sửa
 										</Button>
-										<Button variant={BUTTON_VARIANTS.ACCENT} onClick={() => onDelete(activity._id)} disabled={deleting}>
+										<Button
+											variant={BUTTON_VARIANTS.ACCENT}
+											onClick={() => onDelete(activity._id)}
+											disabled={deleting}
+										>
 											Xóa
 										</Button>
 									</div>
