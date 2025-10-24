@@ -25,10 +25,21 @@ const useRankPagination = (limit) => {
                 setError(null); // Reset lỗi mỗi lần fetch
                 const res = await getUserRankings({ page, limit });
                 const data = await res.json();
+
                 if (!ignore) {
-                    setRankData(data.items || []);
-                    setTotalPages(data.paginate?.totalPages || 1);
+                    const users = Array.isArray(data)
+                        ? data
+                        : data.items || data.data || []; 
+
+                    setRankData(users);
+
+                    setTotalPages(
+                        data.totalPages ||
+                        data.paginate?.totalPages ||
+                        Math.ceil((data.totalItems || 1) / limit)
+                    );
                 }
+
             } catch (err) {
                 console.error(err);
                 if (!ignore) setError('Không thể tải bảng xếp hạng. Vui lòng thử lại sau.');

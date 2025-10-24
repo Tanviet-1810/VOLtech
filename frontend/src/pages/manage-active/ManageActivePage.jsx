@@ -22,6 +22,10 @@ function ManageActivePageContent() {
 	const handleEdit = (activity) => {
 		setEditingActivity(activity);
 		setShowForm(true);
+
+		setTimeout(() => {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		}, 100);
 	};
 
 	const handleDelete = async (activityId) => {
@@ -43,6 +47,10 @@ function ManageActivePageContent() {
 			}
 			setShowForm(false);
 			setEditingActivity(null);
+			setTimeout(() => {
+				window.scrollTo({ top: 0, behavior: 'smooth' });
+			}, 200);
+			
 			fetchActivities();
 		} catch (error) {
 			alert('Có lỗi xảy ra! Vui lòng thử lại.');
