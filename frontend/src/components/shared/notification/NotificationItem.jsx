@@ -1,24 +1,40 @@
-// ...existing imports...
-  // Scroll to top smoothly when notification is clicked
-  const handleClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Notification.module.scss';
-import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../const/route.js';
+import Button from '../button/Button.jsx';
 
 export default function NotificationItem({ notification }) {
-  const activityId = notification.activityId || notification.activity_id || notification.activity?._id;
+  const navigate = useNavigate();
+
+  const activityId =
+    notification.activityId ||
+    notification.activity_id ||
+    notification.activity?._id;
+
   const linkTo = activityId ? ROUTES.ACTIVE.withId(activityId) : null;
+
   const itemClass = notification.read
     ? `${styles.notificationItem} ${styles.notificationItemRead}`
     : `${styles.notificationItem} ${styles.notificationItemUnread}`;
+
+  const handleNavigate = () => {
+    if (!linkTo) return;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate(linkTo);
+  };
 
   const message = (
     <>
       {notification.message}
       {notification.activityName && (
-        <span style={{ color: 'var(--txt-accent)', fontWeight: 'bold', marginLeft: 8 }}>
+        <span
+          style={{
+            color: 'var(--txt-accent)',
+            fontWeight: 'bold',
+            marginLeft: 8,
+          }}
+        >
           {notification.activityName}
         </span>
       )}
@@ -31,21 +47,25 @@ export default function NotificationItem({ notification }) {
     </div>
   );
 
-  const Content = (
-    <>
+  return (
+    <div className={itemClass} onClick={handleNavigate} role="button" tabIndex={0}>
       <div>{message}</div>
       {time}
-    </>
-  );
 
-  return linkTo ? (
-    <Link to={linkTo} className={itemClass} onClick={handleClick}>
-      {Content}
-    </Link>
-  ) : (
-    <div className={itemClass} onClick={handleClick}>
-      {Content}
+      {linkTo && (
+        <div className={styles.btnWrapper}>
+          <Button
+            variant="primary"
+            fillWidth
+            onClick={(e) => {
+              e.stopPropagation();
+              handleNavigate();
+            }}
+          >
+            Xem chi tiết
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
-

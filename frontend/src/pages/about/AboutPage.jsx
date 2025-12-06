@@ -66,7 +66,7 @@ export default function AboutPage() {
 					<a href='https://linkedin.com/company/voltech' target='_blank' rel='noopener noreferrer' className={`${styles.socialCircle} ${styles.socialAccent}`} title='LinkedIn'>
 						<Linkedin size={20} />
 					</a>
-					<a href='https://facebook.com/voltech' target='_blank' rel='noopener noreferrer' className={`${styles.socialCircle} ${styles.socialPrimary}`} title='Facebook'>
+					<a href='https://facebook.com/voltech/' target='_blank' rel='noopener noreferrer' className={`${styles.socialCircle} ${styles.socialPrimary}`} title='Facebook'>
 						<Facebook size={20} />
 					</a>
 					<a href='mailto:contact@voltech.vn' className={`${styles.socialCircle} ${styles.socialAccent}`} title='Email'>

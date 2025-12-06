@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import AuthForm from '../../components/auth-form/AuthForm.jsx';
 import useAuthContext from '../../contexts/auth/useAuthContext.jsx';

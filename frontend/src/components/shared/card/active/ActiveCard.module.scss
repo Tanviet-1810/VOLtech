@@ -64,6 +64,7 @@
 	}
 }
 
+
 .cardContent {
 	padding: 1.5em;
 	display: flex;
@@ -135,6 +136,10 @@
 		width: 1.2em;
 		height: 1.2em;
 	}
+}
+
+.badge {
+	color: var(--color-accent);
 }
 
 .btnWrapper {

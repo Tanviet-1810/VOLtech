@@ -1,7 +1,7 @@
 @use '../../../styles/vars.scss' as *;
 
 .heroSection {
-	background-color: var(--color-primary);
+	background: linear-gradient(360deg, #1b3c53 60%,#043f88 100%);
 	color: var(--txt-white);
 	padding: 5em 0;
 
@@ -19,7 +19,7 @@
 }
 
 .title {
-	font-size: clamp(2em, 5vw, 3.75em);
+	font-size: clamp(2.2em, 5vw, 3.75em);
 	font-weight: var(--font-bold);
 	line-height: 1.2;
 	color: var(--txt-white);

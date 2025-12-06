@@ -11,17 +11,17 @@ import { ROUTES } from '../../../const/route.js';
 import useAuthContext from '../../../contexts/auth/useAuthContext.jsx';
 
 export default function Header() {
-   const [menuOpen, setMenuOpen] = useState(false);
-   const { isAuth, user, loading, logout } = useAuthContext();
+	const [menuOpen, setMenuOpen] = useState(false);
+	const { isAuth, user, loading, logout } = useAuthContext();
 	const [logoutLoading, setLogoutLoading] = useState(false);
 	const [logoutError, setLogoutError] = useState(null);
 	const navigate = useNavigate();
 
 
-   const handleClick = () => {
-	   setMenuOpen(false);
-	   window.scrollTo({ top: 0, behavior: 'smooth' });
-   };
+	const handleClick = () => {
+		setMenuOpen(false);
+		window.scrollTo({ top: 0, behavior: 'smooth' });	
+	};	
 
 	const handleLogout = useCallback(async () => {
 		setLogoutError(null);

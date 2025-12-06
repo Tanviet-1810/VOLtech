@@ -124,3 +124,20 @@
 
   }
 }
+
+.btnWrapper {
+  margin-top: 0.3em;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  width: 25%;
+  white-space: nowrap;
+  height: 2.5em;
+  @media ( min-width: $app-desktop) {
+    width: 20%;
+  }
+  @media ( max-width: $app-desktop) {
+    width: 30%;
+  }
+}
+

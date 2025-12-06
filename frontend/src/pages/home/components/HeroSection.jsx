@@ -1,5 +1,4 @@
 import { ArrowRight, Heart, Users } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import styles from './HeroSection.module.scss';
 import { ROUTES } from '../../../const/route.js';
 import Button, { BUTTON_AS, BUTTON_VARIANTS } from '../../../components/shared/button/Button';
@@ -9,7 +8,6 @@ export function HeroSection() {
 	return (
 		<AppSection className={styles.heroSection}>
 			<div className={styles.content}>
-				{/* Text */}
 				<div className={styles.textBlock}>
 					<h1 className={styles.title}>
 						Kết nối trái tim <br />
@@ -18,7 +16,6 @@ export function HeroSection() {
 					<p className={styles.subtitle}>Tham gia cộng đồng tình nguyện viên, góp phần xây dựng xã hội tốt đẹp và tạo ra những giá trị tích cực cho cuộc sống</p>
 				</div>
 
-				{/* Buttons */}
 				<div className={styles.actions}>
 					<Button as={BUTTON_AS.LINK} to={ROUTES.ACTIVE.path} variant={BUTTON_VARIANTS.ACCENT} icon={<ArrowRight />}>
 						Khám phá hoạt động
@@ -28,7 +25,6 @@ export function HeroSection() {
 					</Button>
 				</div>
 
-				{/* Stats */}
 				<div className={styles.stats}>
 					<div className={styles.statItem}>
 						<div className={styles.iconWrapper}>

@@ -55,7 +55,7 @@ export default function Footer() {
 					</div>
 				</div>
 				<div className={styles.bottom}>
-					<p className={styles.bottomText}>© 2024 VolunteerHub.</p>
+					<p className={styles.bottomText}>© 2025 VolunteerHub.</p>
 				</div>
 			</div>
 		</footer>

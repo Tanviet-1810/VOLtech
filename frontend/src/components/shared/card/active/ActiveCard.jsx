@@ -1,12 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '../Card';
-import { Badge } from '../../badge/Badge';
+import { Badge, BADGE_SIZES, BADGE_VARIANTS } from '../../badge/Badge';
 import Button, { BUTTON_AS } from '../../button/Button';
 import { Calendar, MapPin, Users } from 'lucide-react';
 import styles from './ActiveCard.module.scss';
 import { ROUTES } from '../../../../const/route.js';
-import { ACTIVE_STATUS_VIETNAMESE } from '../../../../const/active-status';
+import { ACTIVE_STATUS, ACTIVE_STATUS_VIETNAMESE } from '../../../../const/active-status';
 
 function isFull(activity) {
 	return (activity.registeredUsers?.length || 0) >= activity.maxParticipants;
@@ -14,7 +14,7 @@ function isFull(activity) {
 
 export default function ActiveCard({ activity, showCreator = false, className = '', ...props }) {
 	const [imgError, setImgError] = React.useState(false);
-		const navigate = useNavigate();		
+	const navigate = useNavigate();
 
 	const linkTo = ROUTES.ACTIVE.withId(activity._id);
 
@@ -22,31 +22,57 @@ export default function ActiveCard({ activity, showCreator = false, className = 
 		if (e.target.closest('a,button')) return;
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 		navigate(linkTo);
-
 	};
 
 	return (
 		<Card className={`${styles.card} ${className}`} onClick={handleCardClick} role="button" tabIndex={0} {...props}>
 			<div className={styles.imageWrapper}>
-				<img src={activity.images?.[0] || '/placeholder.png'} alt={activity.title || 'Hình ảnh hoạt động'} className={styles.image} loading='lazy' onError={() => setImgError(true)} style={imgError ? { display: 'none' } : {}} />
+				<img
+					src={activity.images?.[0] || '/placeholder.png'}
+					alt={activity.title || 'Hình ảnh hoạt động'}
+					className={styles.image}
+					loading="lazy"
+					onError={() => setImgError(true)}
+					style={imgError ? { display: 'none' } : {}}
+				/>
 				{imgError && <div className={styles.imagePlaceholder}>Hình ảnh không khả dụng</div>}
+
 				<div className={styles.badges}>
-					<Badge className={styles.badge}>{ACTIVE_STATUS_VIETNAMESE[activity.status] || activity.status}</Badge>
+					<Badge
+						status={activity.status}
+						size={BADGE_SIZES.MEDIUM}
+						variant={
+							activity.status?.trim() === ACTIVE_STATUS.OPEN
+								? BADGE_VARIANTS.ACCENT
+								: activity.status === ACTIVE_STATUS.COMPLETED
+								? BADGE_VARIANTS.SUCCESS
+								: activity.status === ACTIVE_STATUS.CLOSED
+								? BADGE_VARIANTS.NEUTRAL
+								: activity.status === ACTIVE_STATUS.CANCELLED
+								? BADGE_VARIANTS.ERROR
+								: BADGE_VARIANTS.PRIMARY
+						}
+					>
+						{ACTIVE_STATUS_VIETNAMESE[activity.status] || activity.status}
+					</Badge>
 					<Badge className={styles.badge}>+{activity.points} điểm</Badge>
 					{isFull(activity) && (
-						<Badge className={styles.badge} color='red'>
+						<Badge size={BADGE_SIZES.MEDIUM} variant={BADGE_VARIANTS.ERROR}>
 							Đã đầy
 						</Badge>
 					)}
 				</div>
 			</div>
+
 			<CardContent className={styles.cardContent}>
 				<h3 className={styles.cardTitle}>{activity.title}</h3>
+
 				<div className={styles.details}>
 					<div className={styles.detailItem}>
 						<MapPin className={styles.icon} />
 						<span>{activity.commune?.name}</span>
 					</div>
+
 					<div className={styles.detailItem}>
 						<Calendar className={styles.icon} />
 						<span>
@@ -54,6 +80,7 @@ export default function ActiveCard({ activity, showCreator = false, className = 
 							{activity.endDate ? ' - ' + new Date(activity.endDate).toLocaleDateString('vi-VN') : ''}
 						</span>
 					</div>
+
 					<div className={styles.detailItem}>
 						<Users className={styles.icon} />
 						<span>
@@ -61,6 +88,7 @@ export default function ActiveCard({ activity, showCreator = false, className = 
 							{isFull(activity) && <span className={styles.fullLabel}> (Đã đầy)</span>}
 						</span>
 					</div>
+
 					{showCreator && activity.createdBy?.name && (
 						<div className={styles.detailItem}>
 							<span className={styles.creatorLabel}>Đơn vị tạo:</span>
@@ -68,8 +96,16 @@ export default function ActiveCard({ activity, showCreator = false, className = 
 						</div>
 					)}
 				</div>
+
 				<div className={styles.btnWrapper}>
-					<Button as={BUTTON_AS.LINK} to={ROUTES.ACTIVE.withId(activity._id)} variant='primary' fillWidth aria-label={`Xem chi tiết hoạt động ${activity.title}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+					<Button
+						as={BUTTON_AS.LINK}
+						to={ROUTES.ACTIVE.withId(activity._id)}
+						variant="primary"
+						fillWidth
+						aria-label={`Xem chi tiết hoạt động ${activity.title}`}
+						onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+					>
 						Xem chi tiết
 					</Button>
 				</div>
