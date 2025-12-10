@@ -16,7 +16,7 @@ import EditProfilePage from './pages/edit-profile/EditProfilePage.jsx';
 import { USER_ROLE } from './const/user-role.js';
 import ManageActivePage from './pages/manage-active/ManageActivePage.jsx';
 import NotificationPage from './pages/notification/NotificationPage.jsx';
-
+import Donate from './pages/donate/Donate.jsx';
 
 const App = () => {
 	return (
@@ -31,6 +31,7 @@ const App = () => {
 							<Route path={ROUTES.ABOUT.path} element={<AboutPage />} />
 							<Route path={ROUTES.PROFILE.path} element={<Profile />} />
 							<Route path={ROUTES.RANK.path} element={<RankPage />} />
+							<Route path={ROUTES.DONATE.path} element={<Donate />} />
 							<Route path={ROUTES.EDIT_PROFILE.path} element={<EditProfilePage />} />
 							<Route path={ROUTES.NOTIFICATION.path} element={<NotificationPage />} />
 						</Route>

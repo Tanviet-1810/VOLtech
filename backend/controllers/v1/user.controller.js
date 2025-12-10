@@ -1,6 +1,6 @@
 import userService from '../../services/user.service.js';
 import { isEmpty } from '../../utils/type-check.js';
-import { mapOrderSort } from '../../utils/index.js';
+import { mapOrderSort, generatePaginateOptions } from '../../utils/index.js';
 import { sendJsonResponse, sendErrorResponse } from '../../utils/response.js';
 import { USER_ROLES } from '../../enums/roles.js'; // <-- import roles
 
@@ -57,10 +57,8 @@ export const getUsers = async (req, res) => {
 export const getPublicRankings = async (req, res) => {
 	try {
 		const { page, limit, sortOrder } = req.query;
-		const options = {
-			page: Number(page) || 1,
-			limit: Number(limit) || 10,
-		};
+		// convert page/limit to mongoose options (skip/limit)
+		const options = generatePaginateOptions(page, limit);
 
 		// luôn sắp xếp theo điểm (score) theo thứ tự desc/asc nếu được truyền
 		const order = (sortOrder && sortOrder.toLowerCase() === 'asc') ? 1 : -1;

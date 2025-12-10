@@ -65,4 +65,9 @@ export const ROUTES = {
 		name: 'Terms',
 		description: 'Trang điều khoản sử dụng',
 	},
+	DONATE: {
+		path: '/donate',
+		name: 'Donate',
+		description: 'Trang quyên góp',
+	},
 };

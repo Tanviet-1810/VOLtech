@@ -15,6 +15,7 @@ export default function Navbar({ onItemClick = () => {} }) {
 			{ path: ROUTES.ABOUT.path, label: 'Giới thiệu' },
 			{ path: ROUTES.ACTIVE.path, label: 'Hoạt động' },
 			{ path: ROUTES.RANK.path, label: 'Xếp hạng' },
+			{ path: ROUTES.DONATE.path, label: 'Quyên góp'},
 		],
 		[]
 	);
