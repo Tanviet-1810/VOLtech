@@ -1,0 +1,68 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	font-size: 1em;
+}
+
+.label {
+	display: block;
+	margin-bottom: 0.5em;
+	font-weight: var(--font-semibold);
+	font-size: 0.875em;
+	color: var(--txt-secondary);
+}
+
+.error {
+	color: var(--notice-error);
+	font-size: 0.75em;
+	margin-top: 0.375em;
+}
+
+.input {
+	cursor: text;
+	font-size: 1em;
+	background-color: white;
+	border: 1px solid var(--border-gray);
+	border-radius: var(--border-radius-base);
+	box-shadow: 0 0 0 0 var(--color-primary);
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+	overflow: hidden;
+
+	& > input {
+		width: 100%;
+		background-color: transparent;
+		padding: 0.5em 0.75em;
+
+		&::placeholder {
+			color: var(--neutral-medium);
+			opacity: 0.5;
+		}
+
+		// Style cho input date
+		&[type='date'] {
+			padding: 0.5em 0.75em;
+			font-size: 1em;
+			color: var(--txt-primary);
+		}
+	}
+
+	&:focus-within {
+		border-color: var(--color-primary);
+		box-shadow: 0 0 0 0.5px var(--color-primary);
+	}
+
+	&.required {
+		border-color: var(--notice-warning);
+		box-shadow: 0 0 0 0.5px var(--notice-warning);
+	}
+}
+
+.container.inputError .input {
+	border-color: var(--notice-error);
+	box-shadow: 0 0 0 0.5px var(--notice-error);
+}
+
+.container.inputError .label {
+	color: var(--notice-error);
+}

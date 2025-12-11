@@ -1,0 +1,123 @@
+@use '../../../../styles/vars.scss' as *;
+
+.infoCard {
+	background: var(--color-white);
+	border-radius: var(--border-radius-xl);
+	padding: 2rem;
+	box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
+	border: 0.0625rem solid var(--border-lightgray);
+
+	@media (max-width: $app-mobile) {
+		padding: 1.5rem;
+		border-radius: var(--border-radius-lg);
+	}
+}
+
+.cardTitle {
+	font-size: 1.25rem;
+	font-weight: var(--font-semibold);
+	color: var(--txt-primary);
+	margin: 0 0 1.5rem 0;
+	padding-bottom: 0.75rem;
+	border-bottom: 0.0625rem solid var(--border-lightgray);
+}
+
+.infoGrid {
+	display: grid;
+	gap: 1.25rem;
+
+	@media (min-width: $app-tablet) {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+.infoItem {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 1rem;
+	background: var(--app-background);
+	border-radius: var(--border-radius-base);
+	border: 0.0625rem solid var(--border-lightgray);
+	transition: all 0.2s ease;
+
+	&:hover {
+		border-color: var(--color-accent);
+		box-shadow: 0 0.125rem 0.5rem rgba(255, 165, 54, 0.1);
+		transform: translateY(-0.0625rem);
+	}
+
+	&.scoreItem {
+		background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-white) 100%);
+		border-color: var(--color-accent);
+		color: var(--txt-white);
+		position: relative;
+		overflow: hidden;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 3rem;
+			height: 3rem;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 50%;
+			transform: translate(1rem, -1rem);
+		}
+
+		.labelWrapper {
+			z-index: 1;
+		}
+
+		.labelIcon {
+			color: var(--txt-white);
+		}
+
+		.label {
+			color: rgba(255, 255, 255, 0.9);
+		}
+
+		.value {
+			color: var(--txt-white);
+			font-weight: var(--font-bold);
+			font-size: 1.125rem;
+			z-index: 1;
+		}
+
+		&:hover {
+			border-color: var(--color-accent-white);
+			box-shadow: 0 0.25rem 1rem rgba(255, 165, 54, 0.3);
+			transform: translateY(-0.125rem);
+		}
+	}
+}
+
+.labelWrapper {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.labelIcon {
+	color: var(--txt-accent);
+	flex-shrink: 0;
+	transition: color 0.2s ease;
+}
+
+.label {
+	font-size: 0.75rem;
+	font-weight: var(--font-medium);
+	color: var(--txt-secondary);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	transition: color 0.2s ease;
+}
+
+.value {
+	font-size: 0.9375rem;
+	font-weight: var(--font-medium);
+	color: var(--txt-primary);
+	word-break: break-word;
+	transition: all 0.2s ease;
+}

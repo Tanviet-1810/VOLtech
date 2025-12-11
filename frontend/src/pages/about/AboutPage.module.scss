@@ -1,0 +1,199 @@
+@use '../../styles/vars.scss' as vars;
+
+.title {
+	font-size: 2.2rem;
+	font-weight: var(--font-bold);
+	color: var(--txt-primary);
+	text-align: center;
+}
+
+.description {
+	font-size: 1.2rem;
+	color: var(--txt-secondary);
+	line-height: 1.8;
+	text-align: center;
+	max-width: 700px;
+	margin: 0 auto;
+}
+
+.description p {
+	margin-bottom: 1rem;
+}
+
+.description p:last-child {
+	margin-bottom: 0;
+}
+
+.sectionTitle {
+	font-size: 1.3rem;
+	font-weight: var(--font-semibold);
+	color: var(--txt-primary);
+	margin-bottom: 1rem;
+	border-bottom: 2px solid var(--color-accent);
+	padding-bottom: 0.5rem;
+}
+
+.infoGrid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2rem;
+}
+
+.enterpriseInfo {
+	display: flex;
+	flex-direction: column;
+	gap: 0.8rem;
+	background: var(--color-white);
+	border-radius: var(--border-radius-lg);
+	padding: 1.5rem;
+}
+
+.infoItem {
+	display: flex;
+	align-items: center;
+	gap: 0.8rem;
+	font-size: 1rem;
+	color: var(--txt-secondary);
+}
+
+.icon {
+	// ...existing code...
+}
+.iconPrimary {
+	color: var(--color-primary);
+}
+.iconAccent {
+	color: var(--color-accent);
+}
+
+.statsSection {
+	display: flex;
+	flex-direction: column;
+	background: var(--color-white);
+	border-radius: var(--border-radius-lg);
+	padding: 1.5rem;
+}
+
+.stats {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.statItem {
+	display: flex;
+	align-items: center;
+	gap: 0.8rem;
+	font-size: 1rem;
+	color: var(--txt-secondary);
+	padding: 0.5rem;
+	border-radius: var(--border-radius-base);
+	transition: background-color 0.2s;
+}
+
+.statItem:hover {
+	background-color: var(--res-ultra-light-gray);
+}
+
+.iconStat {
+	// ...existing code...
+}
+
+.points {
+	color: var(--color-primary);
+	font-weight: var(--font-bold);
+	font-size: 1.1rem;
+}
+
+.socialSection {
+	text-align: center;
+	background: var(--color-white);
+	border-radius: var(--border-radius-lg);
+	padding: 1.5rem;
+}
+
+.socials {
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+	margin-top: 1rem;
+}
+
+.socialCircle {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	transition: all 0.3s ease;
+	color: var(--color-white);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.socialPrimary {
+	background-color: var(--color-primary);
+}
+
+.socialPrimary:hover {
+	background-color: var(--txt-primary-black);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.socialAccent {
+	background-color: var(--color-accent);
+}
+
+.socialAccent:hover {
+	background-color: var(--color-accent-white);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: vars.$app-tablet) {
+	.aboutSection {
+		padding: 1.5rem 0;
+		gap: 2rem;
+	}
+
+	.infoGrid {
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+	}
+
+	.enterpriseInfo,
+	.statsSection,
+	.socialSection {
+		padding: 1.2rem;
+	}
+
+	.stats {
+		gap: 0.8rem;
+	}
+
+	.socials {
+		gap: 0.8rem;
+	}
+
+	.socialCircle {
+		width: 45px;
+		height: 45px;
+	}
+}
+
+@media (max-width: vars.$app-mobile) {
+	.title {
+		font-size: 1.8rem;
+	}
+
+	.description {
+		font-size: 1.1rem;
+	}
+
+	.socialCircle {
+		width: 40px;
+		height: 40px;
+	}
+}

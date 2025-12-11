@@ -1,0 +1,32 @@
+@use '../../styles/vars.scss' as *;
+
+.editProfileSection {
+	background-color: var(--app-background);
+	min-height: 80vh;
+	padding: 2rem 0;
+}
+
+.editProfileContainer {
+	max-width: 900px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+
+	@media (max-width: $app-tablet) {
+		max-width: 100%;
+		gap: 1.5rem;
+	}
+}
+
+.editProfileContent {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.editProfileContent {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}

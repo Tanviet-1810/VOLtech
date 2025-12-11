@@ -1,0 +1,353 @@
+@use '../../../styles/vars.scss' as *;
+
+.carouselContainer {
+	position: relative;
+	width: 100%;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	overflow: hidden;
+	touch-action: pan-y;
+}
+
+.carouselTrack {
+	position: relative;
+	width: 100%;
+	height: auto;
+	min-height: 7.5em;
+
+	@media (max-width: $app-tablet) {
+		min-height: auto;
+	}
+}
+
+.carouselItem {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	top: 0;
+	cursor: grab;
+	will-change: transform, opacity;
+
+	&:active {
+		cursor: grabbing;
+	}
+
+	@media (max-width: 48em) {
+		position: relative;
+		left: auto !important;
+		top: auto !important;
+		transform: none !important;
+		margin-bottom: 1em;
+
+		&[style] {
+			opacity: 1 !important;
+			transform: translateX(0) !important;
+		}
+	}
+}
+
+.banner {
+	background: linear-gradient(135deg, #1c6dd0 0%, #1b3c53 100%);
+	color: white;
+	padding: 1em 1.25em;
+	border-radius: 0.75em;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.25em;
+	box-shadow: 0 0.5em 1.5em rgba(28, 109, 208, 0.3);
+	position: relative;
+	overflow: hidden;
+	min-height: 7.5em;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+		animation: shimmer 3s infinite;
+	}
+
+	@media (max-width: 48em) {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.75em;
+		min-height: auto;
+	}
+}
+
+.content {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+	flex: 1;
+	min-width: 0;
+	position: relative;
+	z-index: 1;
+
+	@media (max-width: 48em) {
+		width: 100%;
+		gap: 0.75em;
+	}
+}
+
+.badge {
+	font-size: 0.8125em;
+	font-weight: 600;
+	background: rgba(255, 255, 255, 0.2);
+	padding: 0.375em 0.75em;
+	border-radius: 1.25em;
+	white-space: nowrap;
+	backdrop-filter: blur(4px);
+
+	@media (max-width: 48em) {
+		font-size: 0.6875em;
+	}
+}
+
+.imageContainer {
+	flex-shrink: 0;
+	width: 6rem;
+	height: 6rem;
+	border-radius: 0.75em;
+	overflow: hidden;
+	background: rgba(255, 255, 255, 0.1);
+	border: 0.0625em solid rgba(255, 255, 255, 0.2);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+
+	@media (max-width: 48em) {
+		width: 4rem;
+		height: 4rem;
+	}
+}
+
+.activityImage {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.3s ease;
+
+	.banner:hover & {
+		transform: scale(1.05);
+	}
+}
+
+.activityInfo {
+	flex: 1;
+	min-width: 0;
+}
+
+.title {
+	font-size: 1em;
+	font-weight: 600;
+	margin: 0 0 0.25em 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	letter-spacing: -0.01875em;
+
+	@media (max-width: 48em) {
+		font-size: 0.875em;
+	}
+}
+
+.description {
+	font-size: 0.8125em;
+	margin: 0;
+	opacity: 0.9;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	@media (max-width: 48em) {
+		font-size: 0.75em;
+	}
+}
+
+.points {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	background: rgba(255, 255, 255, 0.15);
+	padding: 0.5em 0.75em;
+	border-radius: 0.5em;
+	white-space: nowrap;
+	position: relative;
+	z-index: 1;
+
+	@media (max-width: 48em) {
+		font-size: 0.75em;
+		padding: 0.375em 0.625em;
+	}
+}
+
+.pointsLabel {
+	font-size: 0.75em;
+	opacity: 0.9;
+}
+
+.pointsValue {
+	font-size: 0.875em;
+	font-weight: 700;
+}
+
+.actions {
+	display: flex;
+	gap: 0.5em;
+	align-items: center;
+	position: relative;
+	z-index: 1;
+
+	@media (max-width: 48em) {
+		width: 100%;
+		justify-content: flex-end;
+		gap: 0.75em;
+	}
+}
+
+.nextBtn,
+.closeBtn,
+.detailBtn {
+	background: rgba(255, 255, 255, 0.2);
+	border: 0.0625em solid rgba(255, 255, 255, 0.3);
+	color: white;
+	border-radius: 0.5em;
+	padding: 0.5em;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5em;
+	transition: all 0.3s ease;
+	backdrop-filter: blur(4px);
+	font-size: 0.875em;
+	font-weight: 500;
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.3);
+		border-color: rgba(255, 255, 255, 0.5);
+		transform: scale(1.05);
+	}
+
+	&:active {
+		transform: scale(0.95);
+	}
+}
+
+.detailBtn {
+	padding: 0.5em 1em;
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	white-space: nowrap;
+
+	@media (max-width: 48em) {
+		padding: 0.5em 0.75em;
+		font-size: 0.75em;
+	}
+}
+
+.btnText {
+	display: inline;
+
+	@media (max-width: 48em) {
+		display: none;
+	}
+}
+
+.indicators {
+	display: none;
+	gap: 0.375em;
+	position: relative;
+	z-index: 1;
+
+	@media (max-width: 48em) {
+		display: flex;
+		width: 100%;
+		justify-content: center;
+	}
+}
+
+.dot {
+	width: 0.5em;
+	height: 0.5em;
+	border-radius: 50%;
+	background: rgba(255, 165, 54, 0.4);
+	cursor: pointer;
+	transition: all 0.3s ease;
+
+	&:hover {
+		background: rgba(255, 165, 54, 0.7);
+		transform: scale(1.2);
+	}
+
+	&.active {
+		background: #ffa536;
+		width: 1.5em;
+		border-radius: 0.25em;
+		animation: pulse 0.3s ease;
+	}
+}
+
+@keyframes slideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-1.25em);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes swipeOutLeft {
+	from {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	to {
+		opacity: 0;
+		transform: translateX(-100%);
+	}
+}
+
+@keyframes swipeOutRight {
+	from {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	to {
+		opacity: 0;
+		transform: translateX(100%);
+	}
+}
+
+@keyframes shimmer {
+	0% {
+		left: -100%;
+	}
+	50% {
+		left: 100%;
+	}
+	100% {
+		left: 100%;
+	}
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.1);
+	}
+	100% {
+		transform: scale(1);
+	}
+}

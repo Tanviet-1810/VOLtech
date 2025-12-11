@@ -1,0 +1,117 @@
+@use '../../../styles/vars.scss' as *;
+
+.btn {
+	position: relative;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5em;
+	font-size: 1em;
+	font-weight: var(--font-medium);
+	border-radius: var(--border-radius-base);
+	padding: 0.75em 1.5em;
+	cursor: pointer;
+	text-decoration: none;
+	transition: background 0.2s, color 0.2s, border-color 0.2s;
+	border: none;
+	outline: none;
+	user-select: none;
+}
+
+// .primary {
+//
+// }
+
+// .secondary {
+//
+// }
+
+// .accent {
+//
+// }
+
+.fillWidth {
+	width: 100%;
+}
+
+.filled.primary {
+	background-color: var(--color-primary);
+	color: var(--color-white);
+	border: 0.125em solid var(--color-primary);
+
+	&:hover:not(.disabled) {
+		background-color: var(--color-primary-white);
+		color: var(--color-white);
+		border-color: var(--color-primary-white);
+	}
+}
+
+.filled.secondary {
+	background-color: var(--res-light-gray);
+	color: var(--color-primary);
+	border: 0.125em solid var(--res-medium-gray);
+
+	&:hover:not(.disabled) {
+		background-color: var(--color-secondary);
+		color: var(--color-white);
+		border-color: var(--color-secondary);
+	}
+}
+
+.filled.accent {
+	background-color: var(--color-accent);
+	color: var(--color-white);
+	border: 0.125em solid var(--color-accent);
+
+	&:hover:not(.disabled) {
+		background-color: var(--color-accent-white);
+		color: var(--color-white);
+		border-color: var(--color-accent-white);
+	}
+}
+
+.outlined.primary {
+	background: transparent;
+	color: var(--color-primary);
+	border: 0.125em solid var(--color-primary);
+
+	&:hover:not(.disabled) {
+		background-color: var(--color-primary);
+		color: var(--color-white);
+	}
+}
+
+.outlined.secondary {
+	background: transparent;
+	color: var(--color-primary);
+	border: 0.125em solid var(--res-medium-gray);
+
+	&:hover:not(.disabled) {
+		background-color: var(--res-light-gray);
+		color: var(--color-primary);
+	}
+}
+
+.outlined.accent {
+	background: transparent;
+	color: var(--color-accent);
+	border: 0.125em solid var(--color-accent);
+
+	&:hover:not(.disabled) {
+		background-color: var(--color-accent);
+		color: var(--color-white);
+	}
+}
+
+.icon {
+	display: flex;
+	align-items: center;
+	font-size: 1.2em;
+}
+
+.disabled,
+:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	pointer-events: none;
+}

@@ -1,0 +1,187 @@
+@use '../../styles/vars.scss' as *;
+
+// --- Placeholders (Reusable Code Allocation) ---
+// Tạo một "placeholder" để chứa các style chung
+// cho các khối thông báo trạng thái.
+%status-base {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    font-size: 1.1rem;
+}
+
+// --- Component Styles ---
+
+.status {
+    @extend %status-base; // Kế thừa style chung
+    color: var(--txt-secondary);
+    gap: 0.5rem;
+}
+
+.statusError {
+    @extend %status-base; // Kế thừa style chung
+    color: var(--notice-error);
+}
+
+.spinner {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid var(--res-light-gray);
+    border-top: 2px solid var(--color-accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+
+    // Lồng keyframes vào class sử dụng nó để code
+    // dễ quản lý và rõ ràng hơn (colocation).
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}
+
+// --- Rank Table ---
+// Cấu trúc này đã được lồng (nested) tốt, giữ nguyên.
+.rankTable {
+    min-width: 100%;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-base);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    thead {
+        background-color: var(--color-primary);
+        color: var(--txt-white);
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: var(--font-semibold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+
+            @media (max-width: $app-tablet) {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.8rem;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            border-bottom: 1px solid var(--border-lightgray);
+            transition: background-color 0.2s ease;
+
+            &:hover {
+                background-color: var(--res-ultra-light-gray);
+            }
+
+            // Modifier class
+            &.topThree {
+                background: linear-gradient(135deg, var(--color-tertiary) 0%, var(--color-white) 100%);
+                font-weight: var(--font-semibold);
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        td {
+            padding: 1rem;
+            color: var(--txt-primary);
+            font-size: 0.95rem;
+            white-space: nowrap;
+            max-width: 450px;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+
+            @media (max-width: $app-tablet) {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.85rem;
+            }
+
+            &:first-child {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            &:last-child {
+                text-align: left;
+                font-weight: var(--font-semibold);
+                color: var(--txt-accent);
+            }
+        }
+    }
+
+    @media (max-width: $app-mobile) {
+        th:nth-child(3),
+        td:nth-child(3) {
+            display: none; 
+        }
+        font-size: 0.8rem;
+
+        th,
+        td {
+            padding: 0.5rem 0.25rem;
+        }
+    }
+}
+
+.rank {
+    font-weight: var(--font-bold);
+    color: var(--txt-accent);
+    font-size: 1rem;
+    min-width: 2rem;
+    display: inline-block;
+}
+
+.crown {
+    color: var(--color-accent);
+    filter: drop-shadow(0 2px 4px rgba(255, 165, 54, 0.3));
+    flex-shrink: 0;
+}
+
+// --- Pagination ---
+// Giữ nguyên cấu trúc flat-class ở đây vì component React
+// đang gọi `styles.pageButton`, `styles.disabled`, `styles.pageInfo`
+// một cách độc lập ở cấp cao nhất (do cơ chế CSS Modules).
+// Lồng chúng vào nhau sẽ làm thay đổi selector và phá vỡ logic.
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 1rem;
+}
+
+.pageButton {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    &:hover {
+        background-color: #f0f0f0;
+    }
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pageInfo {
+    font-weight: 500;
+}
+

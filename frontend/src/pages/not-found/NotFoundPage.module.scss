@@ -1,0 +1,25 @@
+@use '../../styles/vars.scss' as *;
+
+.notFoundSection {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 60vh;
+}
+
+.content {
+	text-align: center;
+}
+
+.title {
+	font-size: 6rem;
+	font-weight: var(--font-bold);
+	color: var(--notice-error);
+	margin-bottom: 0.5em;
+}
+
+.message {
+	font-size: 1.5rem;
+	margin-bottom: 1.5em;
+	color: var(--neutral-medium);
+}

@@ -1,0 +1,14 @@
+@use '../../styles/vars.scss' as *;
+
+.Notification{
+  background-color: var(--app-background);
+
+}
+
+.emptyMessage {
+  text-align: center;
+  color: var(--color-text-secondary);
+  margin-top: 2em;
+  font-size: 1.1em;
+  animation: fadeIn 0.3s;
+}

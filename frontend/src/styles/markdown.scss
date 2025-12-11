@@ -1,0 +1,150 @@
+@use './vars.scss' as vars;
+
+.markdown {
+	/* Base styles */
+	font-family: var(--font-regular);
+	font-size: 1.05rem;
+	line-height: 1.7;
+	color: var(--txt-primary-black);
+
+	/* Headings */
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: var(--txt-primary);
+		font-weight: var(--font-bold);
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+		line-height: 1.2;
+	}
+
+	h1 {
+		font-size: 2rem;
+		border-bottom: 2px solid var(--color-accent);
+		padding-bottom: 0.3em;
+	}
+
+	h2 {
+		font-size: 1.5rem;
+		border-bottom: 1px solid var(--color-accent);
+		padding-bottom: 0.2em;
+	}
+
+	h3 {
+		font-size: 1.25rem; /* Cải thiện kích thước để nổi bật hơn */
+	}
+
+	h4,
+	h5,
+	h6 {
+		font-size: 1rem;
+	}
+
+	/* Paragraph */
+	p {
+		margin: 1em 0;
+		color: var(--txt-primary-black);
+	}
+
+	/* Lists */
+	ul,
+	ol {
+		margin: 1em 0;
+		padding-left: 1.5em; /* Tăng khoảng cách để dễ đọc hơn */
+	}
+
+	ul {
+		list-style: disc;
+	}
+
+	ol {
+		list-style: decimal;
+	}
+
+	li {
+		margin-bottom: 0.5em;
+	}
+
+	/* Links */
+	a {
+		color: var(--txt-accent);
+		text-decoration: underline;
+		transition: color 0.2s ease-in-out; /* Thêm `ease-in-out` để chuyển động mượt mà hơn */
+
+		&:hover {
+			color: var(--color-accent);
+		}
+	}
+
+	/* Blockquote */
+	blockquote {
+		border-left: 4px solid var(--color-accent);
+		background-color: var(--res-ultra-light-gray); /* Sử dụng `background-color` thay vì `background` để rõ ràng hơn */
+		padding: 0.8em 1.2em;
+		margin: 1.5em 0; /* Tăng khoảng cách margin để nổi bật hơn */
+		color: var(--txt-secondary);
+		font-style: italic;
+	}
+
+	/* Code Blocks */
+	code,
+	pre {
+		font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+		background-color: var(--res-light-gray);
+		color: var(--color-primary);
+		border-radius: var(--border-radius-base);
+	}
+
+	code {
+		padding: 0.2em 0.4em;
+		font-size: 0.9em; /* Giảm kích thước để nổi bật trong dòng văn bản */
+	}
+
+	pre {
+		padding: 1em;
+		overflow-x: auto;
+		margin: 1em 0;
+	}
+
+	/* Tables */
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 1.5em 0; /* Tăng khoảng cách margin để tách biệt với nội dung khác */
+		background-color: var(--color-white);
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Thêm box-shadow nhẹ để làm nổi bật */
+	}
+
+	th,
+	td {
+		border: 1px solid var(--border-lightgray);
+		padding: 0.75em 1em; /* Tăng padding để nội dung dễ đọc hơn */
+		text-align: left;
+	}
+
+	th {
+		background-color: var(--color-tertiary);
+		color: var(--txt-primary);
+		font-weight: var(--font-semibold);
+	}
+
+	/* Images */
+	img {
+		max-width: 100%;
+		height: auto; /* Thêm `height: auto` để đảm bảo tỷ lệ khung hình */
+		border-radius: var(--border-radius-lg);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Tăng độ sâu box-shadow để nổi bật hơn */
+		margin: 1.5em 0;
+		display: block;
+	}
+
+	/* Horizontal Rule */
+	hr {
+		border: none;
+		border-top: 1px solid var(--border-lightgray);
+		margin: 3em 0; /* Tăng khoảng cách để phân chia rõ ràng hơn */
+	}
+}

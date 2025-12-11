@@ -1,0 +1,23 @@
+@use '../../../styles/vars.scss' as *;
+
+.section {
+	width: 100%;
+}
+
+.container {
+	max-width: $max-screen-width;
+	margin: 0 auto;
+	padding: 1em 1.5em;
+}
+
+@media (max-width: 768px) {
+	.container {
+		padding: 0.875em 1em;
+	}
+}
+
+@media (max-width: 480px) {
+	.container {
+		padding: 0.25em 0.5em;
+	}
+}

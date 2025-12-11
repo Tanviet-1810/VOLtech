@@ -1,0 +1,64 @@
+.card {
+	width: 100%;
+	max-width: 500px;
+	background-color: var(--color-white);
+	padding: 3rem 2rem;
+	border-radius: var(--border-radius-lg);
+	box-shadow: 0 4px 12px var(--neutral-light);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.title {
+	font-size: 2em;
+	font-weight: var(--font-bold);
+	margin-bottom: 0.25em;
+}
+
+.form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: clamp(0.5rem, 2vw, 1rem);
+}
+
+.submitBtn {
+	width: 100%;
+	padding: 0.75rem 1rem;
+	margin-top: 0.25em;
+	border: none;
+	border-radius: var(--border-radius-base);
+	background-color: var(--color-primary);
+	font-size: 1rem;
+	font-weight: var(--font-medium);
+	color: var(--txt-white);
+	cursor: pointer;
+	transition: opacity 0.2s;
+
+	&:hover {
+		opacity: 0.85;
+	}
+
+	&:disabled {
+		background-color: var(--neutral-light);
+		cursor: not-allowed;
+	}
+}
+
+.error {
+	color: var(--notice-error);
+	font-size: 0.85em;
+	text-align: center;
+	margin-top: 0.5rem;
+	padding: 0.5rem;
+	background-color: rgba(255, 0, 0, 0.05);
+	border-radius: var(--border-radius-base);
+	width: 100%;
+}
+
+@media (max-width: 768px) {
+	.card {
+		padding: 1.5rem;
+	}
+}
