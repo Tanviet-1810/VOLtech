@@ -6,6 +6,7 @@ import Button, { BUTTON_VARIANTS } from '../../../components/shared/button/Butto
 import { useManageActiveContext } from '../../../contexts/manage-active/ManageActiveContext';
 import { ACTIVE_STATUS, ACTIVE_STATUS_VIETNAMESE } from '../../../const/active-status';
 import Select from 'react-select';
+import ParticipantsList from './ParticipantsList';
 
 function ActivityForm({ activity = null, onSubmit, onCancel }) {
 	const { provinces, communes, selectedProvince, setSelectedProvince, creating, updating } = useManageActiveContext();
@@ -187,6 +188,9 @@ function ActivityForm({ activity = null, onSubmit, onCancel }) {
 					{isSubmitting ? 'Đang xử lý...' : activity ? 'Cập nhật' : 'Tạo mới'}
 				</Button>
 			</div>
+
+			{/* Hiển thị danh sách thành viên khi đang chỉnh sửa */}
+			{activity && activity._id && <ParticipantsList activityId={activity._id} />}
 		</form>
 	);
 }

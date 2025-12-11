@@ -72,6 +72,39 @@ class ActiveRepository extends BaseRepository {
 		return this._model.findByIdAndUpdate(activeId, { $pull: { registeredUsers: { user: userId } } }, { new: true }).exec();
 	}
 
+	async getParticipants(activeId, page = 1, limit = 10) {
+		const active = await this._model
+			.findById(activeId)
+			.populate({
+				path: 'registeredUsers.user',
+				select: 'name email avatar score'
+			})
+			.exec();
+		
+		if (!active) return null;
+		
+		const allParticipants = active.registeredUsers.map(ru => ({
+			user: ru.user,
+			isApplied: ru.isApplied
+		}));
+
+		const totalItems = allParticipants.length;
+		const totalPages = Math.ceil(totalItems / limit);
+		const skip = (page - 1) * limit;
+		const participants = allParticipants.slice(skip, skip + limit);
+
+		return {
+			items: participants,
+			paginate: {
+				totalItems,
+				currentPage: page,
+				totalPages,
+				limit
+			},
+			activityPoints: active.points // Thêm points của activity để frontend biết
+		};
+	}
+
 	isFull(active) {
 		return (active.registeredUsers?.length || 0) >= active.maxParticipants;
 	}

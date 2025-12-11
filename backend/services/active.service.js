@@ -174,6 +174,58 @@ class ActiveService {
 		}
 	}
 
+	async getParticipants(activeId, page = 1, limit = 10) {
+		try {
+			if (isEmpty(activeId)) return [ErrorResult(400, 'Thiếu ID hoạt động')];
+			const result = await activeRepository.getParticipants(activeId, page, limit);
+			if (!result) return [ErrorResult(404, 'Không tìm thấy hoạt động')];
+			return [null, result];
+		} catch (error) {
+			return [RepositoryError(error)];
+		}
+	}
+
+	async toggleParticipantScore(activeId, userId) {
+		try {
+			if (isEmpty(activeId) || isEmpty(userId)) {
+				return [ErrorResult(400, 'Thiếu ID hoạt động hoặc người dùng')];
+			}
+
+			const active = await activeRepository.findById(activeId);
+			if (!active) {
+				return [ErrorResult(404, 'Không tìm thấy hoạt động')];
+			}
+
+			const userIndex = active.registeredUsers.findIndex(
+				ru => ru.user?.toString() === userId.toString()
+			);
+
+			if (userIndex < 0) {
+				return [ErrorResult(400, 'Người dùng chưa đăng ký hoạt động')];
+			}
+
+			const registeredUser = active.registeredUsers[userIndex];
+			const newAppliedStatus = !registeredUser.isApplied;
+			const pointsDelta = newAppliedStatus ? active.points : -active.points;
+
+			// Update user score and active's isApplied status
+			await Promise.all([
+				userRepository.update(userId, { $inc: { score: pointsDelta } }),
+				activeRepository.patchUpdate(activeId, {
+					[`registeredUsers.${userIndex}.isApplied`]: newAppliedStatus,
+				}),
+			]);
+
+			return [null, { 
+				success: true, 
+				isApplied: newAppliedStatus,
+				pointsChange: pointsDelta
+			}];
+		} catch (error) {
+			return [RepositoryError(error)];
+		}
+	}
+
 	async applyScoreAll(activeId) {
 		try {
 			if (!activeId) {

@@ -8,7 +8,9 @@ import {
     join,
     leave,
     applyScoreByUID,
-    removeScoreByUID
+    removeScoreByUID,
+    getParticipants,
+    toggleParticipantScore
 } from '../../controllers/v1/active.controller.js';
 import { attachUser, requireAuth, requireRoles } from '../../middleware/index.js';
 import { USER_ROLES } from '../../enums/roles.js';
@@ -17,6 +19,7 @@ const router = Router();
 
 router.get('/', attachUser, getList);
 router.get('/:id', getById);
+router.get('/:id/participants', getParticipants);
 
 router.use(requireAuth);
 router.post('/:id/participants', join);
@@ -27,6 +30,7 @@ const adminModeratorRoles = [USER_ROLES.ADMIN, USER_ROLES.MODERATOR];
 router.post('/', requireRoles(adminModeratorRoles), create);
 router.post('/:id/score/:uid', requireRoles(adminModeratorRoles), applyScoreByUID);
 router.delete('/:id/score/:uid', requireRoles(adminModeratorRoles), removeScoreByUID);
+router.patch('/:id/participants/:userId/score', requireRoles(adminModeratorRoles), toggleParticipantScore);
 router.patch('/:id', requireRoles(adminModeratorRoles), update);
 router.delete('/:id', requireRoles(adminModeratorRoles), remove);
 

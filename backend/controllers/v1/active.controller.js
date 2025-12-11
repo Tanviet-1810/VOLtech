@@ -239,6 +239,48 @@ export async function leave(req, res) {
 	}
 }
 
+// GET /active/:id/participants
+export async function getParticipants(req, res) {
+	try {
+		const { id } = req.params;
+		const { page = 1, limit = 10 } = req.query;
+
+		if (isEmpty(id)) {
+			return sendErrorResponse(res, 400, 'Thiếu id hoạt động');
+		}
+
+		const pageNum = parseInt(page);
+		const limitNum = parseInt(limit);
+
+		const [err, result] = await activeService.getParticipants(id, pageNum, limitNum);
+		if (err) return sendErrorResponse(res, err.code || 404, err.message);
+
+		return sendJsonResponse(res, 200, result);
+	} catch (error) {
+		console.error(error);
+		return sendErrorResponse(res, 500, 'Lỗi máy chủ nội bộ');
+	}
+}
+
+// PATCH /active/:id/participants/:userId/score
+export async function toggleParticipantScore(req, res) {
+	try {
+		const { id, userId } = req.params;
+
+		if (isEmpty(id) || isEmpty(userId)) {
+			return sendErrorResponse(res, 400, 'Thiếu id hoạt động hoặc userId');
+		}
+
+		const [err, result] = await activeService.toggleParticipantScore(id, userId);
+		if (err) return sendErrorResponse(res, err.code || 404, err.message);
+
+		return sendJsonResponse(res, 200, result);
+	} catch (error) {
+		console.error(error);
+		return sendErrorResponse(res, 500, 'Lỗi máy chủ nội bộ');
+	}
+}
+
 // Utils
 const checkAuthorization = (active, userId, userRole) => {
 	return active.createdBy._id.toString() === userId || userRole === 'admin';

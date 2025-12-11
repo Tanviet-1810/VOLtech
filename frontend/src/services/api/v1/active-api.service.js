@@ -48,3 +48,13 @@ export const joinActive = (id) => {
 export const leaveActive = (id) => {
 	return httpDelete(`/active/${id}/participants`);
 };
+
+export const getParticipants = (id, page = 1, limit = 10) => {
+	const queryString = `?page=${page}&limit=${limit}`;
+	const key = `active_participants_${id}_p${page}_l${limit}`;
+	return withApiCache(key, httpGet, `/active/${id}/participants${queryString}`);
+};
+
+export const toggleParticipantScore = (activeId, userId) => {
+	return httpPatch(`/active/${activeId}/participants/${userId}/score`);
+};
