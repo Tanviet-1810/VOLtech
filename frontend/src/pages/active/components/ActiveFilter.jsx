@@ -27,6 +27,8 @@ export default function ActiveFilter() {
 	const [sortBy, setSortBy] = useState('');
 	const [sortOrder, setSortOrder] = useState('');
 	const [joined, setJoined] = useState(false);
+	const [notJoined, setNotJoined] = useState(false);
+
 
 	const [provinces, setProvinces] = useState([]);
 	const [communes, setCommunes] = useState([]);
@@ -85,16 +87,19 @@ export default function ActiveFilter() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// backend expects `joined` only when there's a logged-in user (attachUser uses req.user)
+
 		const patch = { title, status, commune, sortBy, sortOrder };
-		// include joined explicitly so we can clear previous joined filter when unchecked
+
 		if (currentUser) {
-			patch.joined = joined ? true : undefined;
-		} else {
-			patch.joined = undefined;
+			if (joined) patch.joined = true;
+			else patch.joined = undefined;
+
+			patch.notJoined = notJoined ? true : undefined;
 		}
+
 		updateQuery(patch);
 	};
+
 
 	const handleSortChange = (e) => {
 		const idx = e.target.selectedIndex;
@@ -150,6 +155,15 @@ export default function ActiveFilter() {
 					className={styles.checkbox}
 					/>
 				<span>Bạn đã tham gia</span>
+			</label>
+			<label className={styles.checkboxLabel}>
+				<input 
+					type="checkbox"
+					checked={notJoined}
+					onChange={() => setNotJoined(!notJoined)}
+					className={styles.checkbox}
+				/>
+				<span>Bạn chưa tham gia</span>
 			</label>
 
 			<Button type='submit' variant='primary'>

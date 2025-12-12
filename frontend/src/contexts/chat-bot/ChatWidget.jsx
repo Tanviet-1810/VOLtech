@@ -6,6 +6,8 @@ import voltechBot from "../../assets/Icons/voltech-bot.png";
 import { useNavigate } from "react-router-dom";
 import { ChatBotContext } from "./ChatBotContext";
 import APP_CONFIG from "../../../config";
+import useAuthContext from "../../contexts/auth/useAuthContext";
+
 
 export default function ChatWidget() {
   const { history, sendMessage, loading, setHistory } = useContext(ChatBotContext);
@@ -15,6 +17,9 @@ export default function ChatWidget() {
   const [message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
   const messagesEndRef = useRef(null);
+  const { user, isAuth } = useAuthContext();
+  
+
 
   const normalizeImage = (url) => {
     if (!url) return null;
@@ -48,12 +53,18 @@ export default function ChatWidget() {
 
   useEffect(() => {
     if (open && history.length === 0) {
+      const userName = isAuth && user?.name ? user.name : null;
+
+      const greet = userName
+        ? `Chào ${userName}! Tôi là trợ lý của VOLtech, tôi có thể giúp gì cho bạn?`
+        : `Chào bạn! Tôi là trợ lý của VOLtech, tôi có thể giúp gì cho bạn?`;
+
       setHistory(prev => [
         ...prev,
-        { role: "assistant", content: "Chào bạn! Tôi là AI của VOLtech, tôi có thể giúp gì cho bạn?" }
+        { role: "assistant", content: greet }
       ]);
     }
-  }, [open, history.length, setHistory]);
+  }, [open, history.length, isAuth, user, setHistory]);
 
   const handleSend = async (e) => {
     e.preventDefault();

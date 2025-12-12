@@ -7,11 +7,14 @@ export default function ActivesContextProvider({ children }) {
 		title: '',
 		status: '',
 		commune: '',
-		sortBy: '',
-		sortOrder: '',
+        sortBy: '',
+        sortOrder: '',
 		page: 1,
 		limit: 6,
+        joined: undefined,       // ⭐ THÊM
+        notJoined: undefined,    // ⭐ THÊM
 	});
+
 	const [activities, setActivities] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState('');
@@ -19,12 +22,20 @@ export default function ActivesContextProvider({ children }) {
 
 	useEffect(() => {
 		setLoading(true);
+
 		const fetchActivities = async () => {
 			try {
 				const res = await getList(query);
 				const { items, paginate } = await res.json();
+
 				if (res.ok) {
-					const arr = Array.isArray(items) ? items : [];
+					let arr = Array.isArray(items) ? items : [];
+
+					// ⭐ Nếu bật lọc "Bạn chưa tham gia"
+					if (query.notJoined) {
+						arr = arr.filter(a => !a.isJoined);
+					}
+
 					setActivities(arr);
 					setTotalPages(paginate.totalPages || 1);
 					setError('');
@@ -39,11 +50,16 @@ export default function ActivesContextProvider({ children }) {
 				setLoading(false);
 			}
 		};
+
 		fetchActivities();
 	}, [query]);
 
 	const updateQuery = (patch) => {
-		setQuery((prev) => ({ ...prev, ...patch, page: 1 }));
+		setQuery((prev) => ({
+			...prev,
+			...patch,
+			page: 1
+		}));
 	};
 
 	const setPage = (page) => {
