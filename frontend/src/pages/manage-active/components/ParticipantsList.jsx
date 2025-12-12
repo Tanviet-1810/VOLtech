@@ -14,6 +14,7 @@ function ParticipantsList({ activityId }) {
 	const [totalItems, setTotalItems] = useState(0);
 	const [activityPoints, setActivityPoints] = useState(0);
 	const [toggleLoading, setToggleLoading] = useState({});
+	const [error, setError] = useState(null);
 	const ITEMS_PER_PAGE = 10;
 
 	useEffect(() => {
@@ -21,17 +22,23 @@ function ParticipantsList({ activityId }) {
 			if (!activityId) return;
 
 			setLoading(true);
+			setError(null);
 			try {
 				const res = await getParticipants(activityId, currentPage, ITEMS_PER_PAGE);
 				if (res.ok) {
 					const result = await res.json();
-					setParticipants(result.items || []);
+					// Filter out participants with null user
+					const validParticipants = (result.items || []).filter(p => p.user && p.user._id);
+					setParticipants(validParticipants);
 					setTotalPages(result.paginate?.totalPages || 1);
 					setTotalItems(result.paginate?.totalItems || 0);
 					setActivityPoints(result.activityPoints || 0);
+				} else {
+					setError('Không thể tải danh sách thành viên');
 				}
 			} catch (error) {
 				console.error('Error fetching participants:', error);
+				setError('Đã xảy ra lỗi khi tải danh sách thành viên');
 			} finally {
 				setLoading(false);
 			}
@@ -41,6 +48,8 @@ function ParticipantsList({ activityId }) {
 	}, [activityId, currentPage]);
 
 	const handleToggleScore = async (userId) => {
+		if (!userId) return;
+
 		setToggleLoading((prev) => ({ ...prev, [userId]: true }));
 		try {
 			const res = await toggleParticipantScore(activityId, userId);
@@ -49,9 +58,11 @@ function ParticipantsList({ activityId }) {
 				// Cập nhật lại danh sách participants
 				setParticipants((prevParticipants) =>
 					prevParticipants.map((p) =>
-						p.user._id === userId ? { ...p, isApplied: result.isApplied, user: { ...p.user, score: p.user.score + result.pointsChange } } : p
+						p.user?._id === userId ? { ...p, isApplied: result.isApplied, user: { ...p.user, score: (p.user.score || 0) + result.pointsChange } } : p
 					)
 				);
+			} else {
+				console.error('Failed to toggle score');
 			}
 		} catch (error) {
 			console.error('Error toggling score:', error);
@@ -70,6 +81,19 @@ function ParticipantsList({ activityId }) {
 		return (
 			<div className={styles.participantsSection}>
 				<div className={styles.notice}>Vui lòng lưu hoạt động trước để xem danh sách thành viên</div>
+			</div>
+		);
+	}
+
+	// Error boundary - if component crashes, show error message instead of breaking the page
+	if (error) {
+		return (
+			<div className={styles.participantsSection}>
+				<h3 className={styles.participantsTitle}>
+					<Users size={24} />
+					Danh sách thành viên tham gia
+				</h3>
+				<div className={styles.error}>{error}</div>
 			</div>
 		);
 	}
@@ -99,46 +123,53 @@ function ParticipantsList({ activityId }) {
 								</tr>
 							</thead>
 							<tbody>
-								{participants.map((participant, idx) => (
-									<tr key={participant.user?._id || idx}>
-										<td>{(currentPage - 1) * ITEMS_PER_PAGE + idx + 1}</td>
-										<td>
-											<div className={styles.userCell}>
-												<div className={styles.participantAvatar}>
-													{participant.user?.avatar ? (
-														<img src={participant.user.avatar} alt={participant.user.name} />
-													) : (
-														<div className={styles.avatarPlaceholder}>{participant.user?.name?.charAt(0).toUpperCase() || '?'}</div>
+								{participants.map((participant, idx) => {
+									// Skip if user is null or undefined
+									if (!participant.user || !participant.user._id) {
+										return null;
+									}
+
+									return (
+										<tr key={participant.user._id}>
+											<td>{(currentPage - 1) * ITEMS_PER_PAGE + idx + 1}</td>
+											<td>
+												<div className={styles.userCell}>
+													<div className={styles.participantAvatar}>
+														{participant.user.avatar ? (
+															<img src={participant.user.avatar} alt={participant.user.name || 'User'} />
+														) : (
+															<div className={styles.avatarPlaceholder}>{participant.user.name?.charAt(0).toUpperCase() || '?'}</div>
+														)}
+													</div>
+													<span className={styles.userName}>{participant.user.name || 'Người dùng'}</span>
+												</div>
+											</td>
+											<td>{participant.user.email || ''}</td>
+											<td>
+												<div className={styles.scoreCell}>
+													<Award size={16} />
+													<span>{participant.user.score || 0}</span>
+												</div>
+											</td>
+											<td>
+												<div className={styles.checkboxCell}>
+													<input
+														type='checkbox'
+														checked={participant.isApplied || false}
+														onChange={() => handleToggleScore(participant.user._id)}
+														disabled={toggleLoading[participant.user._id]}
+														className={styles.checkbox}
+													/>
+													{participant.isApplied && (
+														<Badge size={BADGE_SIZES.SMALL} variant={BADGE_VARIANTS.SUCCESS}>
+															+{activityPoints} điểm
+														</Badge>
 													)}
 												</div>
-												<span className={styles.userName}>{participant.user?.name || 'Người dùng'}</span>
-											</div>
-										</td>
-										<td>{participant.user?.email || ''}</td>
-										<td>
-											<div className={styles.scoreCell}>
-												<Award size={16} />
-												<span>{participant.user?.score || 0}</span>
-											</div>
-										</td>
-										<td>
-											<div className={styles.checkboxCell}>
-												<input
-													type='checkbox'
-													checked={participant.isApplied}
-													onChange={() => handleToggleScore(participant.user._id)}
-													disabled={toggleLoading[participant.user._id]}
-													className={styles.checkbox}
-												/>
-												{participant.isApplied && (
-													<Badge size={BADGE_SIZES.SMALL} variant={BADGE_VARIANTS.SUCCESS}>
-														+{activityPoints} điểm
-													</Badge>
-												)}
-											</div>
-										</td>
-									</tr>
-								))}
+											</td>
+										</tr>
+									);
+								})}
 							</tbody>
 						</table>
 					</div>

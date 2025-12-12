@@ -11,12 +11,12 @@ import ActivesContextProvider from '../../../contexts/actives-page/ActivesContex
 import ChatWidget from '../../../contexts/chat-bot/ChatWidget.jsx';
 
 export default function MainLayout({ protectedLayout = false, requireRoles }) {
-	const { isAuth, user, loading } = useAuthContext();
+	const { isAuth, user, loading, token } = useAuthContext();
+
 
 	if (protectedLayout && loading) {
 		return <LoadingSection message='Đang kiểm tra đăng nhập...' />;
 	}
-
 	if (protectedLayout && !loading && !isAuth) {
 		return <Navigate to={ROUTES.LOGIN.path} replace />;
 	}

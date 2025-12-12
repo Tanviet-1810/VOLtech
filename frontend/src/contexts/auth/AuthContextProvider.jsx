@@ -7,7 +7,7 @@ import { getMe } from '../../services/api/v1/user-api.service.js';
 const AuthContextProvider = ({ children }) => {
 	const [token, setTokenState] = useState(() => LocalStorageService.get(LOCAL_STORAGE_KEYS.ACCESS_TOKEN));
 	const [user, setUser] = useState(null);
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true); // ✅ Bắt đầu với true để check token ban đầu
 
 	const setToken = useCallback((value) => {
 		setTokenState(value);
@@ -21,30 +21,42 @@ const AuthContextProvider = ({ children }) => {
 	const fetchUser = useCallback(async (tk) => {
 		if (!tk) {
 			setUser(null);
+			setLoading(false);
 			return;
 		}
 		setLoading(true);
 		try {
-			const res = await getMe(tk);
-			if (!res.ok) throw new Error('Không thể lấy thông tin người dùng');
-			const user = await res.json();
-			setUser(user || null);
+			const res = await getMe();
+			
+			if (!res.ok) {
+				throw new Error('Không thể lấy thông tin người dùng');
+			}
+			
+			const userData = await res.json();
+			setUser(userData || null);
 		} catch (err) {
+			console.error('fetchUser error:', err);
 			setUser(null);
+			setToken(null); // ✅ Clear token nếu invalid
 		} finally {
 			setLoading(false);
 		}
-	}, []);
+	}, [setToken]);
 
 	useEffect(() => {
-		if (token) {
-			fetchUser(token);
-		} else {
-			const tk = LocalStorageService.get(LOCAL_STORAGE_KEYS.ACCESS_TOKEN);
-			if (tk) setToken(tk);
-			else setUser(null);
-		}
-	}, [token, fetchUser, setToken]);
+		const initAuth = async () => {
+			const savedToken = LocalStorageService.get(LOCAL_STORAGE_KEYS.ACCESS_TOKEN);
+			
+			if (savedToken) {
+				setTokenState(savedToken);
+				await fetchUser(savedToken);
+			} else {
+				setLoading(false);
+			}
+		};
+		
+		initAuth();
+	}, []); // ✅ Chỉ chạy 1 lần khi mount
 
 	const login = useCallback(
 		async (email, password) => {
@@ -121,6 +133,9 @@ const AuthContextProvider = ({ children }) => {
 		logout,
 		refreshToken,
 	};
+
+	// Debug logging
+	console.log('AuthContext Value:', { token, user, loading, isAuth: !!token && !!user });
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

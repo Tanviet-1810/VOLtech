@@ -41,17 +41,20 @@ function ManageActivePageContent() {
 	const handleFormSubmit = async (formData) => {
 		try {
 			if (editingActivity) {
-				await updateActivity(editingActivity._id, formData);
+				const updatedActivity = await updateActivity(editingActivity._id, formData);
+				// Cập nhật editingActivity với data mới nhất
+				if (updatedActivity) {
+					setEditingActivity(updatedActivity);
+				}
+				alert('Cập nhật hoạt động thành công!');
 			} else {
-				await createActivity(formData);
+				const newActivity = await createActivity(formData);
+				// Khi tạo mới, chuyển sang chế độ edit để xem participants
+				if (newActivity && newActivity._id) {
+					setEditingActivity(newActivity);
+				}
+				alert('Tạo hoạt động thành công!');
 			}
-			setShowForm(false);
-			setEditingActivity(null);
-			setTimeout(() => {
-				window.scrollTo({ top: 0, behavior: 'smooth' });
-			}, 200);
-			
-			fetchActivities();
 		} catch (error) {
 			alert('Có lỗi xảy ra! Vui lòng thử lại.');
 		}

@@ -5,6 +5,7 @@ import communeRoute from './commune.route.js';
 import provinceRoute from './province.route.js';
 import activeRoute from './active.route.js';
 import notificationRoute from './notification.route.js';
+import statisticsRoute from './statistics.route.js';
 
 const v1Api = Router();
 
@@ -14,5 +15,6 @@ v1Api.use('/active', activeRoute);
 v1Api.use('/commune', communeRoute);
 v1Api.use('/province', provinceRoute);
 v1Api.use('/notification', notificationRoute);
+v1Api.use('/statistics', statisticsRoute);
 
 export default v1Api;

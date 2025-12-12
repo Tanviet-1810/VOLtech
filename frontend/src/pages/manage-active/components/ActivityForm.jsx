@@ -8,6 +8,16 @@ import { ACTIVE_STATUS, ACTIVE_STATUS_VIETNAMESE } from '../../../const/active-s
 import Select from 'react-select';
 import ParticipantsList from './ParticipantsList';
 
+// Error boundary wrapper for ParticipantsList
+function SafeParticipantsList({ activityId }) {
+	try {
+		return <ParticipantsList activityId={activityId} />;
+	} catch (error) {
+		console.error('ParticipantsList Error:', error);
+		return null; // Don't break the form if ParticipantsList crashes
+	}
+}
+
 function ActivityForm({ activity = null, onSubmit, onCancel }) {
 	const { provinces, communes, selectedProvince, setSelectedProvince, creating, updating } = useManageActiveContext();
 
@@ -182,15 +192,15 @@ function ActivityForm({ activity = null, onSubmit, onCancel }) {
 
 			<div className={styles.formActions}>
 				<Button type='button' variant={BUTTON_VARIANTS.SECONDARY} onClick={onCancel} disabled={isSubmitting}>
-					Hủy
+					{activity ? 'Đóng' : 'Hủy'}
 				</Button>
 				<Button type='submit' variant={BUTTON_VARIANTS.PRIMARY} disabled={isSubmitting}>
-					{isSubmitting ? 'Đang xử lý...' : activity ? 'Cập nhật' : 'Tạo mới'}
+					{isSubmitting ? 'Đang xử lý...' : activity ? 'Lưu thay đổi' : 'Tạo mới'}
 				</Button>
 			</div>
 
-			{/* Hiển thị danh sách thành viên khi đang chỉnh sửa */}
-			{activity && activity._id && <ParticipantsList activityId={activity._id} />}
+			{/* Hiển thị danh sách thành viên khi đang chỉnh sửa - wrapped in error boundary */}
+			{activity && activity._id && <SafeParticipantsList activityId={activity._id} />}
 		</form>
 	);
 }

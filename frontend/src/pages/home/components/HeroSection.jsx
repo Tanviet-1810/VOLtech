@@ -1,10 +1,33 @@
 import { ArrowRight, Heart, Users } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import styles from './HeroSection.module.scss';
 import { ROUTES } from '../../../const/route.js';
 import Button, { BUTTON_AS, BUTTON_VARIANTS } from '../../../components/shared/button/Button';
 import AppSection from '../../../components/shared/app-section/AppSection';
+import { getOverallStatistics } from '../../../services/api/v1/statistics-api.service';
 
 export function HeroSection() {
+	const [statistics, setStatistics] = useState({
+		totalUsers: 0,
+		totalActivities: 0,
+	});
+
+	useEffect(() => {
+		const fetchStatistics = async () => {
+			try {
+				const response = await getOverallStatistics();
+				const data = await response.json();
+				if (data) {
+					setStatistics(data);
+				}
+			} catch (error) {
+				console.error('Error fetching statistics:', error);
+			}
+		};
+
+		fetchStatistics();
+	}, []);
+
 	return (
 		<AppSection className={styles.heroSection}>
 			<div className={styles.content}>
@@ -31,7 +54,7 @@ export function HeroSection() {
 							<Users className={styles.iconStat} />
 						</div>
 						<div>
-							<div className={styles.statNumber}>5,000+</div>
+							<div className={styles.statNumber}>{statistics.totalUsers.toLocaleString('vi-VN')}+</div>
 							<div className={styles.statLabel}>Tình nguyện viên</div>
 						</div>
 					</div>
@@ -40,7 +63,7 @@ export function HeroSection() {
 							<Heart className={styles.iconStat} />
 						</div>
 						<div>
-							<div className={styles.statNumber}>1,200+</div>
+							<div className={styles.statNumber}>{statistics.totalActivities.toLocaleString('vi-VN')}+</div>
 							<div className={styles.statLabel}>Hoạt động</div>
 						</div>
 					</div>
